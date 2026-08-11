@@ -19,10 +19,16 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      - name: Set up JDK 17 (build)
+      - name: Set up JDK 17 (toolchain)
         uses: actions/setup-java@v4
         with:
           java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up JDK 21 (build)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
           distribution: 'temurin'
           cache: maven
 
