@@ -1,0 +1,47 @@
+name: ISW2 Testing Module CI
+
+on:
+  push:
+    branches: [ testing-module ]
+  pull_request:
+    branches: [ testing-module ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 11 (toolchain)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Set up JDK 17 (build)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Show environment
+        run: |
+          mvn -version
+          cat ~/.m2/toolchains.xml
+
+      - name: Build and test avro core
+        working-directory: lang/java
+        run: >
+          mvn -B install -pl avro -am
+          -Dinvoker.skip=true
+          -Dmaven.build.cache.enabled=false
+
+      - name: Upload surefire reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: lang/java/avro/target/surefire-reports/
+
