@@ -1,0 +1,72 @@
+name: ISW2 Testing Module CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # necessario per l'analisi SonarCloud (storia completa)
+
+      - name: Set up JDK 11 (toolchain)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '11'
+          distribution: 'temurin'
+
+      - name: Set up JDK 17 (toolchain)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: Set up JDK 21 (build)
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Cache SonarCloud packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+
+      - name: Show environment
+        run: |
+          mvn -version
+          cat ~/.m2/toolchains.xml
+
+      - name: Build, test and analyze
+        working-directory: lang/java
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: >
+          mvn -B
+          org.jacoco:jacoco-maven-plugin:0.8.12:prepare-agent
+          install -pl avro -am
+          -Dinvoker.skip=true
+          -Dmaven.build.cache.enabled=false
+          org.jacoco:jacoco-maven-plugin:0.8.12:report
+          org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
+          -Dsonar.projectKey=avro
+          -Dsonar.organization=lucaaa02
+          -Dsonar.host.url=https://sonarcloud.io
+          -Dsonar.coverage.jacoco.xmlReportPaths=avro/target/site/jacoco/jacoco.xml
+          
+      - name: Upload surefire reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: surefire-reports
+          path: lang/java/avro/target/surefire-reports/

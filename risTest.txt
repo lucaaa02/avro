@@ -1,0 +1,5 @@
+INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in org.apache.avro.file.TestIOExceptionDuringWrite
+[INFO] Tests run: 17, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.004 s -- in org.apache.avro.TestSchemaCompatibilityMissingUnionBranch
+[INFO] Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.098 s -- in org.apache.avro.reflect.TestByteBuffer
+[INFO] Tests run: 15, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.008 s -- in org.apache.avro.generic.TestGenericDatumWriter
+[ERROR] Tests run: 3433, Failures: 1, Errors: 2, Skipped: 2
