@@ -2,9 +2,9 @@ name: ISW2 Testing Module CI
 
 on:
   push:
-    branches: [ testing-module ]
+    branches: [ main ]
   pull_request:
-    branches: [ testing-module ]
+    branches: [ main ]
   workflow_dispatch:
 
 jobs:
