@@ -52,10 +52,11 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: >
-          mvn -B install -pl avro -am
+          mvn -B
+          org.jacoco:jacoco-maven-plugin:0.8.12:prepare-agent
+          install -pl avro -am
           -Dinvoker.skip=true
           -Dmaven.build.cache.enabled=false
-          org.jacoco:jacoco-maven-plugin:0.8.12:prepare-agent
           org.jacoco:jacoco-maven-plugin:0.8.12:report
           org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
           -Dsonar.projectKey=avro
