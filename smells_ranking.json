@@ -1,0 +1,3836 @@
+{
+    "paging": {
+        "pageIndex": 1,
+        "pageSize": 500,
+        "total": 201
+    },
+    "baseComponent": {
+        "id": "AZ48S0L7XbHGnnUctnvj",
+        "key": "avro",
+        "name": "Apache Avro Java",
+        "description": "Avro parent Java project",
+        "qualifier": "TRK",
+        "measures": []
+    },
+    "components": [
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyd",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/parsing/doc-files/parsing.html",
+            "name": "parsing.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/parsing/doc-files/parsing.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "99",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "475"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzi",
+            "key": "avro:avro/src/main/java/org/apache/avro/Schema.java",
+            "name": "Schema.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/Schema.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "90",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "1674"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAzA",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/GenericData.java",
+            "name": "GenericData.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/GenericData.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "34",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "1176"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyc",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/parsing/Symbol.java",
+            "name": "Symbol.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/parsing/Symbol.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "30",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "463"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzo",
+            "key": "avro:avro/src/main/java/org/apache/avro/Resolver.java",
+            "name": "Resolver.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/Resolver.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "25",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "473"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzW",
+            "key": "avro:avro/src/main/java/org/apache/avro/Protocol.java",
+            "name": "Protocol.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/Protocol.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "23",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "500"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxZ",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/ReflectData.java",
+            "name": "ReflectData.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/ReflectData.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "21",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "832"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxn",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaBuilder.java",
+            "name": "SchemaBuilder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaBuilder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "20",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "1208"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy-",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java",
+            "name": "GenericDatumReader.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/GenericDatumReader.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "18",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "518"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwr",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/SpecificData.java",
+            "name": "SpecificData.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/SpecificData.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "15",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "475"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAym",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/BinaryDecoder.java",
+            "name": "BinaryDecoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/BinaryDecoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "12",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "707"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwm",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/SpecificDatumReader.java",
+            "name": "SpecificDatumReader.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/SpecificDatumReader.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "10",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "117"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw8",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/springframework/ConcurrentReferenceHashMap.java",
+            "name": "ConcurrentReferenceHashMap.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/springframework/ConcurrentReferenceHashMap.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "9",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "670"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyR",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/DataFileReader.java",
+            "name": "DataFileReader.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/DataFileReader.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "9",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "205"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyl",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java",
+            "name": "BlockingBinaryEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/BlockingBinaryEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "8",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "368"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy_",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/PrimitivesArrays.java",
+            "name": "PrimitivesArrays.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/PrimitivesArrays.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "8",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "509"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxP",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/ReflectionUtil.java",
+            "name": "ReflectionUtil.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/ReflectionUtil.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "8",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "145"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwo",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/SpecificExceptionBase.java",
+            "name": "SpecificExceptionBase.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/SpecificExceptionBase.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "8",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "48"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxB",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/Utf8.java",
+            "name": "Utf8.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/Utf8.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "8",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "172"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyx",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/BinaryData.java",
+            "name": "BinaryData.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/BinaryData.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "7",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "317"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyZ",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java",
+            "name": "FastReaderBuilder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/FastReaderBuilder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "5",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "519"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzv",
+            "key": "avro:avro/src/main/java/org/apache/avro/Conversion.java",
+            "name": "Conversion.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/Conversion.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "4",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "92"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyX",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/DecoderFactory.java",
+            "name": "DecoderFactory.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/DecoderFactory.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "4",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "88"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyz",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/DirectBinaryDecoder.java",
+            "name": "DirectBinaryDecoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/DirectBinaryDecoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "4",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "148"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxg",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/FieldAccessReflect.java",
+            "name": "FieldAccessReflect.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/FieldAccessReflect.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "4",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "107"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxE",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/RandomData.java",
+            "name": "RandomData.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/RandomData.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "4",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "177"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyb",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/parsing/ResolvingGrammarGenerator.java",
+            "name": "ResolvingGrammarGenerator.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/parsing/ResolvingGrammarGenerator.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "4",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "290"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwt",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/SpecificFixed.java",
+            "name": "SpecificFixed.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/SpecificFixed.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "4",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "49"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzZ",
+            "key": "avro:avro/src/main/java/org/apache/avro/Conversions.java",
+            "name": "Conversions.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/Conversions.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "292"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzH",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/GenericDatumWriter.java",
+            "name": "GenericDatumWriter.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/GenericDatumWriter.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "279"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAzC",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/GenericRecordBuilder.java",
+            "name": "GenericRecordBuilder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/GenericRecordBuilder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "117"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxK",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/MapUtil.java",
+            "name": "MapUtil.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/MapUtil.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "16"
+                }
+            ]
+        },
+        {
+            "id": "AZ48Tm7P8A16mjd83eK6",
+            "key": "avro:pom.xml",
+            "name": "pom.xml",
+            "qualifier": "FIL",
+            "path": "pom.xml",
+            "language": "xml",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "580"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxW",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java",
+            "name": "ReflectDatumReader.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/ReflectDatumReader.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "269"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxT",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/ReflectDatumWriter.java",
+            "name": "ReflectDatumWriter.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/ReflectDatumWriter.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "154"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyY",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/ResolvingDecoder.java",
+            "name": "ResolvingDecoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/ResolvingDecoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "204"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwf",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaCompatibility.java",
+            "name": "SchemaCompatibility.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaCompatibility.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "543"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzp",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaNormalization.java",
+            "name": "SchemaNormalization.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaNormalization.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "119"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy6",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaParser.java",
+            "name": "SchemaParser.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaParser.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "106"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwn",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/SpecificRecordBase.java",
+            "name": "SpecificRecordBase.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/SpecificRecordBase.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "80"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzs",
+            "key": "avro:avro/src/main/java/org/apache/avro/SystemLimitException.java",
+            "name": "SystemLimitException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SystemLimitException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "123"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzt",
+            "key": "avro:avro/src/main/java/org/apache/avro/UnresolvedUnionException.java",
+            "name": "UnresolvedUnionException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/UnresolvedUnionException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "25"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw4",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/UtfTextUtils.java",
+            "name": "UtfTextUtils.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/UtfTextUtils.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "118"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyp",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/ValidatingDecoder.java",
+            "name": "ValidatingDecoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/ValidatingDecoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "3",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "192"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzX",
+            "key": "avro:avro/src/main/java/org/apache/avro/AvroMissingFieldException.java",
+            "name": "AvroMissingFieldException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/AvroMissingFieldException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "22"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy4",
+            "key": "avro:avro/src/main/java/org/apache/avro/AvroRemoteException.java",
+            "name": "AvroRemoteException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/AvroRemoteException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "21"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyS",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/DataFileReader12.java",
+            "name": "DataFileReader12.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/DataFileReader12.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "173"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyO",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/DataFileWriter.java",
+            "name": "DataFileWriter.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/DataFileWriter.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "313"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxi",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/DateAsLongEncoding.java",
+            "name": "DateAsLongEncoding.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/DateAsLongEncoding.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "24"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAww",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/internal/JacksonUtils.java",
+            "name": "JacksonUtils.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/internal/JacksonUtils.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "166"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy0",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/JsonDecoder.java",
+            "name": "JsonDecoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/JsonDecoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "463"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyv",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/JsonEncoder.java",
+            "name": "JsonEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/JsonEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "238"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyf",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/parsing/JsonGrammarGenerator.java",
+            "name": "JsonGrammarGenerator.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/parsing/JsonGrammarGenerator.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "57"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxO",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/MapEntry.java",
+            "name": "MapEntry.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/MapEntry.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "25"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw7",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/springframework/ObjectUtils.java",
+            "name": "ObjectUtils.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/springframework/ObjectUtils.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "183"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyh",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/parsing/SkipParser.java",
+            "name": "SkipParser.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/parsing/SkipParser.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "40"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx_",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/SnappyCodec.java",
+            "name": "SnappyCodec.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/SnappyCodec.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "60"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwl",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/SpecificErrorBuilderBase.java",
+            "name": "SpecificErrorBuilderBase.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/SpecificErrorBuilderBase.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "78"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw_",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/TimePeriod.java",
+            "name": "TimePeriod.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/TimePeriod.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "256"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxy",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/TracingAvroTypeException.java",
+            "name": "TracingAvroTypeException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/TracingAvroTypeException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "34"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx3",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/TracingClassCastException.java",
+            "name": "TracingClassCastException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/TracingClassCastException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "50"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyi",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/parsing/ValidatingGrammarGenerator.java",
+            "name": "ValidatingGrammarGenerator.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/parsing/ValidatingGrammarGenerator.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "83"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyT",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/ZstandardCodec.java",
+            "name": "ZstandardCodec.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/ZstandardCodec.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "2",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "69"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwy",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/internal/Accessor.java",
+            "name": "Accessor.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/internal/Accessor.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "80"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxh",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java",
+            "name": "ArrayAccessor.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/ArrayAccessor.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "178"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy1",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/BlockingDirectBinaryEncoder.java",
+            "name": "BlockingDirectBinaryEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/BlockingDirectBinaryEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "76"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy2",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/BufferedBinaryEncoder.java",
+            "name": "BufferedBinaryEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/BufferedBinaryEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "146"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw3",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/ByteBufferOutputStream.java",
+            "name": "ByteBufferOutputStream.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/ByteBufferOutputStream.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "73"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw5",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/ClassSecurityValidator.java",
+            "name": "ClassSecurityValidator.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/ClassSecurityValidator.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "105"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyA",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/CodecFactory.java",
+            "name": "CodecFactory.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/CodecFactory.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "71"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyG",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/DataFileConstants.java",
+            "name": "DataFileConstants.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/DataFileConstants.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "17"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyL",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/DataFileStream.java",
+            "name": "DataFileStream.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/DataFileStream.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "282"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyC",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/DeflateCodec.java",
+            "name": "DeflateCodec.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/DeflateCodec.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "83"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyW",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/EncoderFactory.java",
+            "name": "EncoderFactory.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/EncoderFactory.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "104"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxv",
+            "key": "avro:avro/src/main/java/org/apache/avro/data/Json.java",
+            "name": "Json.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/data/Json.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "176"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy7",
+            "key": "avro:avro/src/main/java/org/apache/avro/JsonProperties.java",
+            "name": "JsonProperties.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/JsonProperties.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "165"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzb",
+            "key": "avro:avro/src/main/java/org/apache/avro/JsonSchemaFormatter.java",
+            "name": "JsonSchemaFormatter.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/JsonSchemaFormatter.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "11"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzj",
+            "key": "avro:avro/src/main/java/org/apache/avro/LogicalTypes.java",
+            "name": "LogicalTypes.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/LogicalTypes.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "422"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyA2E",
+            "key": "avro:avro/pom.xml",
+            "name": "pom.xml",
+            "qualifier": "FIL",
+            "path": "avro/pom.xml",
+            "language": "xml",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "215"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxt",
+            "key": "avro:avro/src/main/java/org/apache/avro/data/RecordBuilderBase.java",
+            "name": "RecordBuilderBase.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/data/RecordBuilderBase.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "92"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzu",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaFormatter.java",
+            "name": "SchemaFormatter.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaFormatter.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "27"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy5",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaFormatterFactory.java",
+            "name": "SchemaFormatterFactory.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaFormatterFactory.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "25"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxF",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/Schemas.java",
+            "name": "Schemas.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/Schemas.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "113"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwk",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/SpecificRecordBuilderBase.java",
+            "name": "SpecificRecordBuilderBase.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/SpecificRecordBuilderBase.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "17"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwx",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/internal/ThreadLocalWithInitial.java",
+            "name": "ThreadLocalWithInitial.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/internal/ThreadLocalWithInitial.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxs",
+            "key": "avro:avro/src/main/java/org/apache/avro/data/TimeConversions.java",
+            "name": "TimeConversions.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/data/TimeConversions.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "263"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx0",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/TracingNullPointException.java",
+            "name": "TracingNullPointException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/TracingNullPointException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "59"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxA",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/WeakIdentityHashMap.java",
+            "name": "WeakIdentityHashMap.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/WeakIdentityHashMap.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "141"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyN",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/XZCodec.java",
+            "name": "XZCodec.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/XZCodec.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "66"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyE",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/ZstandardLoader.java",
+            "name": "ZstandardLoader.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/ZstandardLoader.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "code_smells",
+                    "value": "1",
+                    "bestValue": false
+                },
+                {
+                    "metric": "ncloc",
+                    "value": "25"
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxz",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/ArrayPositionPredicate.java",
+            "name": "ArrayPositionPredicate.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/ArrayPositionPredicate.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "11"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw6",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/springframework/Assert.java",
+            "name": "Assert.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/springframework/Assert.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "21"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxf",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/AvroAlias.java",
+            "name": "AvroAlias.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/AvroAlias.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "14"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxa",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/AvroAliases.java",
+            "name": "AvroAliases.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/AvroAliases.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "10"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxM",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/AvroDefault.java",
+            "name": "AvroDefault.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/AvroDefault.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "10"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxX",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/AvroDoc.java",
+            "name": "AvroDoc.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/AvroDoc.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "10"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxU",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/AvroEncode.java",
+            "name": "AvroEncode.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/AvroEncode.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "12"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwp",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/AvroGenerated.java",
+            "name": "AvroGenerated.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/AvroGenerated.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "9"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxY",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/AvroIgnore.java",
+            "name": "AvroIgnore.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/AvroIgnore.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "9"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxQ",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/AvroMeta.java",
+            "name": "AvroMeta.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/AvroMeta.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "18"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxj",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/AvroName.java",
+            "name": "AvroName.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/AvroName.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "10"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzJ",
+            "key": "avro:avro/src/main/java/org/apache/avro/AvroRuntimeException.java",
+            "name": "AvroRuntimeException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/AvroRuntimeException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "12"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxe",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/AvroSchema.java",
+            "name": "AvroSchema.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/AvroSchema.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "12"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzf",
+            "key": "avro:avro/src/main/java/org/apache/avro/AvroTypeException.java",
+            "name": "AvroTypeException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/AvroTypeException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "9"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzP",
+            "key": "avro:avro/src/main/java/org/apache/avro/message/BadHeaderException.java",
+            "name": "BadHeaderException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/message/BadHeaderException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAya",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/BinaryEncoder.java",
+            "name": "BinaryEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/BinaryEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "94"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzO",
+            "key": "avro:avro/src/main/java/org/apache/avro/message/BinaryMessageDecoder.java",
+            "name": "BinaryMessageDecoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/message/BinaryMessageDecoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "76"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzS",
+            "key": "avro:avro/src/main/java/org/apache/avro/message/BinaryMessageEncoder.java",
+            "name": "BinaryMessageEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/message/BinaryMessageEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "50"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxG",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/ByteBufferInputStream.java",
+            "name": "ByteBufferInputStream.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/ByteBufferInputStream.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "74"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyB",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/BZip2Codec.java",
+            "name": "BZip2Codec.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/BZip2Codec.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "54"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAze",
+            "key": "avro:avro/src/main/java/org/apache/avro/CanonicalSchemaFormatterFactory.java",
+            "name": "CanonicalSchemaFormatterFactory.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/CanonicalSchemaFormatterFactory.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "11"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw2",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/ClassUtils.java",
+            "name": "ClassUtils.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/ClassUtils.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "45"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwv",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/internal/ClassValueCache.java",
+            "name": "ClassValueCache.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/internal/ClassValueCache.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "18"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyK",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/Codec.java",
+            "name": "Codec.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/Codec.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "19"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxS",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/CustomEncoding.java",
+            "name": "CustomEncoding.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/CustomEncoding.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "16"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyw",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/DatumReader.java",
+            "name": "DatumReader.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/DatumReader.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyt",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/DatumWriter.java",
+            "name": "DatumWriter.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/DatumWriter.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "14"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyo",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/Decoder.java",
+            "name": "Decoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/Decoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "33"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyy",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/DirectBinaryEncoder.java",
+            "name": "DirectBinaryEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/DirectBinaryEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "75"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyu",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/Encoder.java",
+            "name": "Encoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/Encoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "51"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxr",
+            "key": "avro:avro/src/main/java/org/apache/avro/data/ErrorBuilder.java",
+            "name": "ErrorBuilder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/data/ErrorBuilder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "11"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwg",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/ExternalizableInput.java",
+            "name": "ExternalizableInput.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/ExternalizableInput.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "34"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwj",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/ExternalizableOutput.java",
+            "name": "ExternalizableOutput.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/ExternalizableOutput.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "30"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxc",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/FieldAccess.java",
+            "name": "FieldAccess.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/FieldAccess.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "13"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxN",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/FieldAccessor.java",
+            "name": "FieldAccessor.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/FieldAccessor.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "25"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyI",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/FileReader.java",
+            "name": "FileReader.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/FileReader.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "13"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwh",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/FixedSize.java",
+            "name": "FixedSize.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/FixedSize.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "12"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzm",
+            "key": "avro:avro/src/main/java/org/apache/avro/FormattedSchemaParser.java",
+            "name": "FormattedSchemaParser.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/FormattedSchemaParser.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzF",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/GenericArray.java",
+            "name": "GenericArray.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/GenericArray.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "11"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzE",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/GenericContainer.java",
+            "name": "GenericContainer.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/GenericContainer.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "5"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy9",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/GenericEnumSymbol.java",
+            "name": "GenericEnumSymbol.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/GenericEnumSymbol.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "5"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzG",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/GenericFixed.java",
+            "name": "GenericFixed.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/GenericFixed.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "4"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzD",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/GenericRecord.java",
+            "name": "GenericRecord.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/GenericRecord.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "8"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAzB",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/IndexedRecord.java",
+            "name": "IndexedRecord.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/IndexedRecord.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "5"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzn",
+            "key": "avro:avro/src/main/java/org/apache/avro/InvalidAvroMagicException.java",
+            "name": "InvalidAvroMagicException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/InvalidAvroMagicException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxo",
+            "key": "avro:avro/src/main/java/org/apache/avro/InvalidNumberEncodingException.java",
+            "name": "InvalidNumberEncodingException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/InvalidNumberEncodingException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzY",
+            "key": "avro:avro/src/main/java/org/apache/avro/JsonSchemaFormatterFactory.java",
+            "name": "JsonSchemaFormatterFactory.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/JsonSchemaFormatterFactory.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "19"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzq",
+            "key": "avro:avro/src/main/java/org/apache/avro/JsonSchemaParser.java",
+            "name": "JsonSchemaParser.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/JsonSchemaParser.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "35"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxx",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/LocationStep.java",
+            "name": "LocationStep.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/LocationStep.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "16"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAza",
+            "key": "avro:avro/src/main/java/org/apache/avro/LogicalType.java",
+            "name": "LogicalType.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/LogicalType.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "28"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxC",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/MapEntry.java",
+            "name": "MapEntry.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/MapEntry.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "24"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx7",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/MapKeyPredicate.java",
+            "name": "MapKeyPredicate.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/MapKeyPredicate.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "17"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzL",
+            "key": "avro:avro/src/main/java/org/apache/avro/message/MessageDecoder.java",
+            "name": "MessageDecoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/message/MessageDecoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "45"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzN",
+            "key": "avro:avro/src/main/java/org/apache/avro/message/MessageEncoder.java",
+            "name": "MessageEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/message/MessageEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "8"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzM",
+            "key": "avro:avro/src/main/java/org/apache/avro/message/MissingSchemaException.java",
+            "name": "MissingSchemaException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/message/MissingSchemaException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxl",
+            "key": "avro:avro/src/main/java/org/apache/avro/NameValidator.java",
+            "name": "NameValidator.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/NameValidator.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "73"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxJ",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/NonCopyingByteArrayOutputStream.java",
+            "name": "NonCopyingByteArrayOutputStream.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/NonCopyingByteArrayOutputStream.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "49"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxd",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/Nullable.java",
+            "name": "Nullable.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/Nullable.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "11"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyQ",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/NullCodec.java",
+            "name": "NullCodec.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/NullCodec.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "35"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzz",
+            "key": "avro:avro/src/main/java/overview.html",
+            "name": "overview.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/overview.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "62"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx2",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/package-info.java",
+            "name": "package-info.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/package-info.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "1"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzl",
+            "key": "avro:avro/src/main/java/org/apache/avro/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "22"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwq",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "24"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx8",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "10"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw-",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "5"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxR",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "63"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxq",
+            "key": "avro:avro/src/main/java/org/apache/avro/data/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/data/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "4"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyn",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "13"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyg",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/parsing/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/parsing/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "18"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyH",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "5"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAy8",
+            "key": "avro:avro/src/main/java/org/apache/avro/generic/package.html",
+            "name": "package.html",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/generic/package.html",
+            "language": "web",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "22"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyV",
+            "key": "avro:avro/src/main/java/org/apache/avro/ParseContext.java",
+            "name": "ParseContext.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/ParseContext.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "166"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyj",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/parsing/Parser.java",
+            "name": "Parser.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/parsing/Parser.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "93"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyq",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/ParsingDecoder.java",
+            "name": "ParsingDecoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/ParsingDecoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "48"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAys",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/ParsingEncoder.java",
+            "name": "ParsingEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/ParsingEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "34"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx1",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/PathElement.java",
+            "name": "PathElement.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/PathElement.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "3"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx4",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/PathPredicate.java",
+            "name": "PathPredicate.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/PathPredicate.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "3"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx6",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/PathTracingException.java",
+            "name": "PathTracingException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/PathTracingException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "6"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx5",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/PositionalPathPredicate.java",
+            "name": "PositionalPathPredicate.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/PositionalPathPredicate.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "3"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzR",
+            "key": "avro:avro/src/main/java/org/apache/avro/message/RawMessageDecoder.java",
+            "name": "RawMessageDecoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/message/RawMessageDecoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "29"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzQ",
+            "key": "avro:avro/src/main/java/org/apache/avro/message/RawMessageEncoder.java",
+            "name": "RawMessageEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/message/RawMessageEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "52"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxu",
+            "key": "avro:avro/src/main/java/org/apache/avro/data/RecordBuilder.java",
+            "name": "RecordBuilder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/data/RecordBuilder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "4"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw0",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/ReusableByteArrayInputStream.java",
+            "name": "ReusableByteArrayInputStream.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/ReusableByteArrayInputStream.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "13"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxI",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/ReusableByteBufferInputStream.java",
+            "name": "ReusableByteBufferInputStream.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/ReusableByteBufferInputStream.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "54"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzk",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaBuilderException.java",
+            "name": "SchemaBuilderException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaBuilderException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "9"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzg",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaParseException.java",
+            "name": "SchemaParseException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaParseException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "9"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxD",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/SchemaResolver.java",
+            "name": "SchemaResolver.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/SchemaResolver.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "182"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzK",
+            "key": "avro:avro/src/main/java/org/apache/avro/message/SchemaStore.java",
+            "name": "SchemaStore.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/message/SchemaStore.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "19"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAw1",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/SchemaUtil.java",
+            "name": "SchemaUtil.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/SchemaUtil.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "32"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzx",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaValidationException.java",
+            "name": "SchemaValidationException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaValidationException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "12"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzV",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaValidationStrategy.java",
+            "name": "SchemaValidationStrategy.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaValidationStrategy.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "4"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzr",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaValidator.java",
+            "name": "SchemaValidator.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaValidator.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "4"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzw",
+            "key": "avro:avro/src/main/java/org/apache/avro/SchemaValidatorBuilder.java",
+            "name": "SchemaValidatorBuilder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/SchemaValidatorBuilder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "33"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxH",
+            "key": "avro:avro/src/main/java/org/apache/avro/util/SchemaVisitor.java",
+            "name": "SchemaVisitor.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/util/SchemaVisitor.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "14"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyF",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/SeekableByteArrayInput.java",
+            "name": "SeekableByteArrayInput.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/SeekableByteArrayInput.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "26"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyD",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/SeekableFileInput.java",
+            "name": "SeekableFileInput.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/SeekableFileInput.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "25"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyP",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/SeekableInput.java",
+            "name": "SeekableInput.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/SeekableInput.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "9"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAwi",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/SpecificDatumWriter.java",
+            "name": "SpecificDatumWriter.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/SpecificDatumWriter.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "83"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAws",
+            "key": "avro:avro/src/main/java/org/apache/avro/specific/SpecificRecord.java",
+            "name": "SpecificRecord.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/specific/SpecificRecord.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "4"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxb",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/Stringable.java",
+            "name": "Stringable.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/Stringable.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "11"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyM",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/Syncable.java",
+            "name": "Syncable.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/Syncable.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "5"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyJ",
+            "key": "avro:avro/src/main/java/org/apache/avro/file/SyncableFileOutputStream.java",
+            "name": "SyncableFileOutputStream.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/file/SyncableFileOutputStream.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "27"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxV",
+            "key": "avro:avro/src/main/java/org/apache/avro/reflect/Union.java",
+            "name": "Union.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/reflect/Union.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "12"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAx9",
+            "key": "avro:avro/src/main/java/org/apache/avro/path/UnionTypePredicate.java",
+            "name": "UnionTypePredicate.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/path/UnionTypePredicate.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "11"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxm",
+            "key": "avro:avro/src/main/java/org/apache/avro/UnknownAvroCodecException.java",
+            "name": "UnknownAvroCodecException.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/UnknownAvroCodecException.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzd",
+            "key": "avro:avro/src/main/java/org/apache/avro/ValidateAll.java",
+            "name": "ValidateAll.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/ValidateAll.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "13"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzh",
+            "key": "avro:avro/src/main/java/org/apache/avro/ValidateCanBeRead.java",
+            "name": "ValidateCanBeRead.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/ValidateCanBeRead.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAxp",
+            "key": "avro:avro/src/main/java/org/apache/avro/ValidateCanRead.java",
+            "name": "ValidateCanRead.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/ValidateCanRead.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "7"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzU",
+            "key": "avro:avro/src/main/java/org/apache/avro/ValidateLatest.java",
+            "name": "ValidateLatest.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/ValidateLatest.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "16"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNP4HbJenSxyAzc",
+            "key": "avro:avro/src/main/java/org/apache/avro/ValidateMutualRead.java",
+            "name": "ValidateMutualRead.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/ValidateMutualRead.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "22"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        },
+        {
+            "id": "AZ_9rZNO4HbJenSxyAyr",
+            "key": "avro:avro/src/main/java/org/apache/avro/io/ValidatingEncoder.java",
+            "name": "ValidatingEncoder.java",
+            "qualifier": "FIL",
+            "path": "avro/src/main/java/org/apache/avro/io/ValidatingEncoder.java",
+            "language": "java",
+            "measures": [
+                {
+                    "metric": "ncloc",
+                    "value": "148"
+                },
+                {
+                    "metric": "code_smells",
+                    "value": "0",
+                    "bestValue": true
+                }
+            ]
+        }
+    ]
+}

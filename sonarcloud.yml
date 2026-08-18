@@ -23,6 +23,17 @@ jobs:
           distribution: temurin
           java-version: 17
 
+      - name: Download and install EvoSuite runtime jar
+        run: |
+          wget -O evosuite-1.2.0.jar https://github.com/EvoSuite/evosuite/releases/download/v1.2.0/evosuite-1.2.0.jar
+          mvn install:install-file \
+            -Dfile=evosuite-1.2.0.jar \
+            -DgroupId=org.evosuite \
+            -DartifactId=evosuite-standalone-runtime \
+            -Dversion=1.2.0 \
+            -Dpackaging=jar \
+            -DgeneratePom=true
+
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:

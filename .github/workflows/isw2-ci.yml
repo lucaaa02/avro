@@ -62,7 +62,7 @@ jobs:
           -Dsonar.projectKey=avro
           -Dsonar.organization=lucaaa02
           -Dsonar.host.url=https://sonarcloud.io
-          -Dsonar.coverage.jacoco.xmlReportPaths=avro/target/site/jacoco/jacoco.xml
+          -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
           
       - name: Upload surefire reports
         if: always()

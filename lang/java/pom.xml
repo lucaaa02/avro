@@ -175,6 +175,9 @@
               <!-- exclude the generated classes under apache.avro.test, some of
                 these match **/Test** and are not JUnit tests -->
               <exclude>**/apache/avro/test/**</exclude>
+              <exclude>**/randoop-tests/**</exclude>
+              <exclude>**/randoop/**</exclude>
+              <exclude>**/evosuite/**</exclude>
             </excludes>
             <enableAssertions>false</enableAssertions>
             <trimStackTrace>false</trimStackTrace>
@@ -334,6 +337,9 @@
         <artifactId>spotless-maven-plugin</artifactId>
         <configuration>
           <java>
+            <excludes>
+              <exclude>**/randoop/**</exclude>
+            </excludes>
             <eclipse>
               <!-- Avro uses Sun's java code style conventions with 2 spaces, this is a modified version of
                    the eclipse formatter -->
@@ -574,6 +580,12 @@
         <groupId>org.hamcrest</groupId>
         <artifactId>hamcrest-library</artifactId>
         <version>${hamcrest.version}</version>
+        <scope>test</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.evosuite</groupId>
+        <artifactId>evosuite-standalone-runtime</artifactId>
+        <version>1.2.0</version>
         <scope>test</scope>
       </dependency>
       <dependency>
