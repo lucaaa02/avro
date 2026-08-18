@@ -90,6 +90,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <parallel>none</parallel>
+          <argLine>${argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED</argLine>
         </configuration>
         <executions>
           <execution>
@@ -243,6 +244,12 @@
     <dependency>
       <groupId>org.mockito</groupId>
       <artifactId>mockito-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.evosuite</groupId>
+      <artifactId>evosuite-standalone-runtime</artifactId>
+      <version>1.2.0</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
