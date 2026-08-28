@@ -90,7 +90,7 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <configuration>
           <parallel>none</parallel>
-          <argLine>${argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED</argLine>
+          <argLine>${argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED -Djava.security.manager=allow</argLine>
           <!-- Override (not merge) the parent's includes/excludes: run only our
                own test suites (category-partition, LLM, Randoop, EvoSuite) and
                disable the native Avro test suite. -->
