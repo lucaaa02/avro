@@ -91,6 +91,24 @@
         <configuration>
           <parallel>none</parallel>
           <argLine>${argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED</argLine>
+          <!-- Override (not merge) the parent's includes/excludes: run only our
+               own test suites (category-partition, LLM, Randoop, EvoSuite) and
+               disable the native Avro test suite. -->
+          <includes combine.self="override">
+            <include>**/TestResolverCategoryPartition.java</include>
+            <include>**/TestUtf8CategoryPartition.java</include>
+            <include>**/ResolverTestPrompt2.java</include>
+            <include>**/ResolverTestPrompt3.java</include>
+            <include>**/Utf8TestPrompt2.java</include>
+            <include>**/Utf8TestPrompt3.java</include>
+            <include>**/RandoopResolverTest.java</include>
+            <include>**/RandoopUtf8Test.java</include>
+            <include>**/Resolver_ESTest.java</include>
+          </includes>
+          <excludes combine.self="override">
+            <!-- A few inner/@Nested classes are not to be tested directly -->
+            <exclude>**/*$*</exclude>
+          </excludes>
         </configuration>
         <executions>
           <execution>
