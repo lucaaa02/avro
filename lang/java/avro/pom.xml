@@ -35,6 +35,9 @@
   <packaging>bundle</packaging>
 
   <properties>
+    <!-- Default so @{argLine} resolves to empty instead of staying a literal
+         placeholder when no goal (jacoco:prepare-agent, PIT) sets it. -->
+    <argLine></argLine>
     <main.basedir>${project.parent.parent.basedir}</main.basedir>
     <osgi.import>
       !org.apache.avro*,
@@ -61,6 +64,22 @@
     <testResources>
       <testResource>
         <directory>src/test/resources</directory>
+        <excludes>
+          <!-- These SPI registrations are only consumed by native Avro tests
+               (e.g. TestReflectData, TestSchemaParser), which this module's
+               Surefire config disables. Left on the classpath, ServiceLoader
+               calls reachable from our EvoSuite-generated tests
+               (separateClassLoader=true / resetStaticState=true) still
+               discover them, but load the provider class under a different
+               classloader than the SPI interface, throwing
+               ServiceConfigurationError ("not a subtype") and permanently
+               poisoning classes like LogicalTypes for the rest of the shared
+               test JVM (once a class's static init fails, every later use
+               throws NoClassDefFoundError for the whole JVM's lifetime). -->
+          <exclude>META-INF/services/org.apache.avro.Conversion</exclude>
+          <exclude>META-INF/services/org.apache.avro.LogicalTypes$LogicalTypeFactory</exclude>
+          <exclude>META-INF/services/org.apache.avro.FormattedSchemaParser</exclude>
+        </excludes>
       </testResource>
       <testResource>
         <directory>../../../share/</directory>
@@ -93,13 +112,14 @@
             <version>11</version>
           </jdkToolchain>
           <parallel>none</parallel>
-          <argLine>${argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED</argLine>
+          <argLine>@{argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED</argLine>
           <!-- Override (not merge) the parent's includes/excludes: run only our
                own test suites (category-partition, LLM, Randoop, EvoSuite) and
                disable the native Avro test suite. -->
           <includes combine.self="override">
             <include>**/TestResolverCategoryPartition.java</include>
             <include>**/TestUtf8CategoryPartition.java</include>
+            <include>**/TestUtf8MutationReinforced.java</include>
             <include>**/ResolverTestPrompt2.java</include>
             <include>**/ResolverTestPrompt3.java</include>
             <include>**/Utf8TestPrompt2.java</include>
@@ -107,6 +127,7 @@
             <include>**/RandoopResolverTest.java</include>
             <include>**/RandoopUtf8Test.java</include>
             <include>**/Resolver_ESTest.java</include>
+            <include>**/Utf8_ESTest.java</include>
           </includes>
           <excludes combine.self="override">
             <!-- A few inner/@Nested classes are not to be tested directly -->
@@ -223,6 +244,43 @@
             </configuration>
           </execution>
         </executions>
+      </plugin>
+
+      <!-- Mutation testing (assignment point 4b): first pass evaluates only
+           the BB (manual category-partition) suite against Resolver/Utf8. -->
+      <plugin>
+        <groupId>org.pitest</groupId>
+        <artifactId>pitest-maven</artifactId>
+        <version>1.19.1</version>
+        <configuration>
+          <!-- PIT has no jdkToolchain support; it forks child JVMs using
+               JAVA_HOME by default, which on this machine (and in CI) is
+               JDK 21. Point it explicitly at JDK 11 to match the toolchain
+               Surefire already uses for this module's tests. -->
+          <jvm>/usr/lib/jvm/java-11-openjdk-amd64/bin/java</jvm>
+          <targetClasses>
+            <param>org.apache.avro.Resolver</param>
+            <param>org.apache.avro.util.Utf8</param>
+          </targetClasses>
+          <targetTests>
+            <param>org.apache.avro.util.TestResolverCategoryPartition</param>
+            <param>org.apache.avro.util.TestUtf8CategoryPartition</param>
+            <param>org.apache.avro.util.TestUtf8MutationReinforced</param>
+          </targetTests>
+          <mutators>
+            <mutator>DEFAULTS</mutator>
+          </mutators>
+        </configuration>
+        <dependencies>
+          <!-- TestUtf8CategoryPartition is JUnit 5 (Jupiter); PIT's core
+               engine only understands JUnit4/TestNG without this plugin,
+               so Utf8 mutants were all reported NO_COVERAGE. -->
+          <dependency>
+            <groupId>org.pitest</groupId>
+            <artifactId>pitest-junit5-plugin</artifactId>
+            <version>1.2.2</version>
+          </dependency>
+        </dependencies>
       </plugin>
 
     </plugins>
