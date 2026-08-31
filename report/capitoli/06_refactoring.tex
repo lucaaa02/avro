@@ -1,0 +1,208 @@
+% ============================================================
+% CAPITOLO 6 -- REFACTORING E VALIDAZIONE INCROCIATA
+% ============================================================
+\section{Refactoring e validazione incrociata}
+
+Il punto 5 della consegna richiede di generare, tramite un modello
+linguistico, quattro varianti rifattorizzate (C1-C4) di ciascuna
+classe, fornendo al modello un contesto progressivamente crescente:
+la variante C1 senza alcun contesto di test, la C2 con la suite
+manuale (BB), la C3 con l'aggiunta di un'analisi dei gap di copertura
+non coperti dalla suite manuale, la C4 con l'ulteriore aggiunta dei
+test rinforzati dal mutation testing (MT), dove disponibili. Per
+ciascuna variante, tutte le famiglie di test già sviluppate vengono
+rilanciate, verificandone il superamento e misurando le variazioni di
+copertura, mutation score e qualità del codice rispetto alla versione
+originale (C0).
+
+L'obiettivo di questa analisi è dimostrare concretamente il rischio
+di introdurre regressioni comportamentali quando si rifattorizza del
+codice senza fornire un contesto sufficiente sui test esistenti, e
+verificare quali tecniche di test siano effettivamente in grado di
+rilevare tali regressioni.
+
+\subsection{Refactoring di \texttt{Resolver}}
+
+Sono state generate quattro varianti rifattorizzate di \texttt{Resolver}
+con contesto crescente. La variante C1 (nessun contesto) rinomina il
+campo \texttt{ErrorAction.error} in \texttt{errorType}, sostituisce
+\texttt{Promote.isValid} con una tabella statica, e riscrive
+\texttt{toString()}, \texttt{noReorder()} e la scansione di promozione
+in \texttt{firstMatchingBranch} utilizzando costrutti più moderni
+(stream, \texttt{IntStream}, tabelle statiche). La variante C2 (+BB)
+applica le stesse modifiche di C1 ad eccezione del rename del campo
+\texttt{error}, che il modello evita non appena riceve in input il
+file di test manuali. La variante C3 (+gap di coverage) si limita al
+solo refactoring di \texttt{Promote.isValid} -- l'unica modifica in
+una zona ben coperta dalla suite manuale -- lasciando intatte le altre
+regioni segnalate come scoperte. La variante C4 (+MT) risulta
+identica a C3, poiché per \texttt{Resolver} non esiste una suite MT
+specifica (la Test Strength è già del 100\% con la sola suite BB, come
+discusso in Sezione~\ref{sec:mutation}).
+
+La \tabref{tab:resolver-refactor-passfail} riporta l'esito della
+validazione di ciascuna famiglia di test su ciascuna variante. La
+variante C1 fa fallire la compilazione di BB, Randoop e LLM, a causa
+del rename del campo \texttt{error} referenziato per nome da questi
+test: solo la suite EvoSuite, che non accede a quel campo
+direttamente, risulta compatibile. Questo risultato dimostra
+concretamente il rischio di rifattorizzare senza fornire contesto
+sui test esistenti. Da C2 in poi, tutte le famiglie di test risultano
+passanti su tutte le varianti.
+
+Durante la verifica è stato individuato e corretto un bug di
+ricorsione, introdotto da una semplificazione della chiamata
+\texttt{Resolver.resolve(...)} in \texttt{resolve(...)}: le
+sottoclassi \texttt{RecordAdjust}, \texttt{WriterUnion} e
+\texttt{ReaderUnion} dichiarano ciascuna un proprio metodo statico
+\texttt{resolve} con la stessa firma, per cui la chiamata non
+qualificata veniva risolta al metodo della classe annidata anziché al
+dispatcher esterno. Il problema è stato rilevato empiricamente da 5
+test Randoop falliti sulla variante C2, e corretto ripristinando la
+qualificazione esplicita in tutte le varianti.
+
+Un risultato più rilevante emerge dal confronto tra le famiglie di
+test sulla variante C2: nessuna delle quattro tecniche applicate
+(BB, Randoop, LLM, EvoSuite) rileva alcuna differenza comportamentale
+nei refactoring di \texttt{toString()}, \texttt{noReorder()} e
+\texttt{firstMatchingBranch}, nonostante si tratti di modifiche
+strutturali non banali. La causa è che nessuna delle suite esistenti
+esercita scenari con più campi obbligatori mancanti
+contemporaneamente -- l'unico caso in cui un'eventuale regressione in
+\texttt{toString()} sarebbe osservabile dall'esterno. Questo conferma
+che tale regione di codice resta scoperta anche dalle tecniche
+automatiche, non solo dalla suite manuale.
+
+La \tabref{tab:resolver-refactor-delta} riporta i delta di copertura,
+mutation score e una stima di complessità (proxy per gli smell,
+calcolata come LOC e punti di decisione, in assenza di un'analisi
+SonarCloud diretta sulle varianti). Le varianti C1 e C2 riducono la
+complessità del 15\% circa rispetto a C0, mentre C3 e C4 -- più
+conservative -- la riducono solo del 6\%. Il mutation score resta
+invariato al 51\% su tutte le varianti compilabili: nessuno dei
+refactoring applicati altera il comportamento nella porzione di
+codice già coperta dai mutanti generabili.
+
+Durante il calcolo del mutation score è stato inoltre riscontrato un
+limite tecnico: includere la suite EvoSuite nei \texttt{targetTests}
+di PIT causa sistematicamente un errore di esecuzione
+(\texttt{RUN\_ERROR}), dovuto a un conflitto tra il meccanismo di
+\emph{HotSwap} di PIT e l'instrumentazione a runtime di EvoSuite. Il
+conflitto è stato confermato anche isolando la sola suite EvoSuite,
+risultando quindi strutturale e non legato all'aggregazione con altre
+famiglie di test. È stato inoltre osservato che PIT conta di default
+i mutanti in \texttt{RUN\_ERROR} insieme a quelli uccisi nel totale
+aggregato: un'ispezione del solo dato complessivo rischierebbe quindi
+di far percepire come valido un mutation score in realtà inattendibile
+per quella famiglia di test, se non si esamina il dettaglio per
+mutatore. Il mutation score è stato pertanto calcolato escludendo
+sistematicamente EvoSuite.
+
+
+\subsection{Refactoring di \texttt{Utf8}}
+
+Il design dei refactor per \texttt{Utf8} si è basato su un rischio
+reale individuato nella classe: \texttt{equals()} e \texttt{hashCode()}
+implementano un percorso ottimizzato per array esattamente
+dimensionati, che richiede una guardia esplicita sulla lunghezza
+effettiva del buffer; inoltre, i metodi \texttt{set(String)} e
+\texttt{set(Utf8)} sono esercitati dalle famiglie LLM, Randoop ed
+EvoSuite, ma da nessun test delle famiglie BB e MT.
+
+La variante C1 (nessun contesto) rinomina \texttt{set} in
+\texttt{setFromString}/\texttt{setFromUtf8} (rompendo la compilazione
+ovunque il metodo originale sia utilizzato), unifica \texttt{equals()}
+in un'unica chiamata a \texttt{Arrays.equals} con range espliciti, e
+rimuove per errore la guardia \texttt{bytes.length == length} da
+\texttt{hashCode()}, introducendo un bug latente sui buffer con
+capacità residua. La variante C2 (+BB) annulla il rename di
+\texttt{set}, poiché il modello riconosce che comprometterebbe la
+compilazione, ma il bug di \texttt{hashCode()} permane: la suite BB
+non esercita mai lo scenario di buffer con capacità residua. La
+variante C3 (+gap di coverage, che segnala esplicitamente
+\texttt{setByteLength}, \texttt{equals} e \texttt{hashCode} come aree
+a rischio) diventa conservativa, ripristinando \texttt{equals()} e
+\texttt{hashCode()} identici all'originale e spostando il refactoring
+su \texttt{compareSequences()}, area non segnalata. La variante C4
+(+MT) reintroduce con fiducia il merge di \texttt{equals()} -- i test
+di boundary della suite MT sui confini di lunghezza 7/8 lo confermano
+equivalente -- e rende esplicita, anziché rimuovere, la guardia di
+\texttt{hashCode()} tramite un metodo estratto
+\texttt{isExactlySized(...)}.
+
+La \tabref{tab:utf8-refactor-passfail} riporta l'esito della
+validazione delle cinque famiglie di test su ciascuna variante.
+Emergono due difetti reali, ciascuno rilevato da una sola famiglia su
+cinque. Il primo, relativo a \texttt{hashCode()} (guardia rimossa in
+C1 e C2), produce un valore di hash errato su un'istanza ridotta
+tramite \texttt{setByteLength}: è catturato esclusivamente dalla
+famiglia MT, poiché nessun'altra famiglia costruisce questo specifico
+scenario di riduzione del buffer. Il secondo, relativo a
+\texttt{equals()} (merge dei due percorsi, presente in C1, C2 e C4),
+risulta comportamentalmente identico all'originale per qualunque input
+costruibile tramite le API pubbliche della classe -- un refactoring
+apparentemente sicuro anche per la suite MT, che utilizza solo
+costruttori pubblici. Soltanto EvoSuite lo smaschera, sfruttando il
+costruttore \texttt{package-private} \texttt{Utf8(String, int)} con un
+valore di lunghezza negativo: l'implementazione originale, il cui
+ciclo con condizione \texttt{i < length} non viene mai eseguito per
+un valore negativo, restituisce silenziosamente \texttt{true}, mentre
+\texttt{Arrays.equals(bytes, 0, length, ...)} solleva
+un'eccezione (\texttt{IllegalArgumentException}) per lo stesso input.
+Una conseguenza pratica di questi risultati è che PIT si è rifiutato
+di eseguire l'analisi di mutazione sulle varianti C1 e C2, poiché il
+mutation testing richiede una suite di partenza interamente passante,
+e la suite MT risultava rossa su entrambe.
+
+La \tabref{tab:utf8-refactor-delta} riporta i delta rispetto a C0.
+La variante C1 presenta la riduzione di complessità più marcata
+(-11\% punti di decisione) ma è anche l'unica a rompere la
+compilazione di tre famiglie su cinque e a introdurre un difetto reale
+non rilevato dalla maggioranza delle tecniche disponibili. La
+variante C3, la più conservativa, mantiene tutte le cinque famiglie
+passanti al 100\% e un mutation score invariato rispetto a C0. La
+variante C4, pur avendo risolto correttamente il bug di
+\texttt{hashCode()}, fallisce ancora su EvoSuite a causa del bug di
+\texttt{equals()}, non rilevabile dalla sola suite MT.
+
+Il risultato più significativo di questa analisi è che le due
+famiglie MT ed EvoSuite catturano due difetti completamente distinti,
+e nessuna delle due sarebbe stata sufficiente da sola: MT individua un
+\emph{valore} errato utilizzando esclusivamente le API pubbliche
+standard della classe, mentre EvoSuite individua una differenza nella
+\emph{forma} del comportamento (eccezione anziché valore normale),
+raggiungibile solo sfruttando uno stato interno costruibile
+esclusivamente tramite un costruttore ad accesso ristretto -- uno
+scenario che né un tester umano, né Randoop, né un LLM guidato da un
+prompt di refactoring avrebbero verosimilmente pensato di generare.
+
+\subsection{Sintesi}
+
+I risultati ottenuti su entrambe le classi convergono verso la stessa
+conclusione. Su \texttt{Resolver}, nessuna delle quattro tecniche di
+test applicate rileva una modifica strutturale non banale in
+\texttt{toString()}, poiché tutte condividono lo stesso punto cieco: 
+l'assenza di scenari con più campi obbligatori mancanti
+contemporaneamente. Su \texttt{Utf8}, due difetti reali e distinti
+vengono introdotti dal refactoring, e ciascuno risulta visibile a una
+sola famiglia di test su cinque: il mutation testing individua un
+valore di calcolo errato raggiungibile con le sole API pubbliche,
+mentre EvoSuite individua una differenza di comportamento raggiungibile
+solo sfruttando uno stato interno costruibile esclusivamente tramite
+reflection o accesso a un costruttore riservato.
+
+Questi risultati dimostrano empiricamente che l'adeguatezza aggregata
+delle tecniche di test disponibili non è, da sola, sufficiente a
+proteggere da regressioni introdotte da un refactoring assistito da
+un modello linguistico con contesto parziale. Ciascuna tecnica esplora
+lo spazio degli input secondo un principio proprio -- la
+rappresentatività funzionale per i test manuali, la casualità guidata
+dal feedback per Randoop, la plausibilità sintattica per gli LLM, la
+massimizzazione della copertura strutturale per EvoSuite, la
+sensibilità a mutazioni specifiche per il mutation testing -- e
+nessuno di questi principi, preso isolatamente, garantisce la
+copertura degli scenari esplorati dagli altri. La combinazione di più
+tecniche complementari, unita a un'analisi mirata di copertura e
+mutation score per guidare eventuali interventi correttivi, risulta
+pertanto necessaria per validare con affidabilità un refactoring del
+codice.

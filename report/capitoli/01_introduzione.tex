@@ -1,0 +1,64 @@
+% ============================================================
+% CAPITOLO 1 -- INTRODUZIONE
+% ============================================================
+\section{Introduzione}
+
+L'elaborato ha come obiettivo la realizzazione di un'attività di verifica
+software su un fork di Apache Avro, applicata a due classi del progetto.
+
+La verifica è stata condotta attraverso diverse metodologie di testing:
+test manuali basati sulla tecnica Category-Partition, test generati
+automaticamente tramite Randoop, test generati con l'ausilio di un LLM,
+e test guidati dalla copertura tramite EvoSuite.
+
+Sono stati isolati i test relativi alle due classi in esame, escludendo
+dall'esecuzione la suite di test già presente nel progetto originale.
+
+\subsection{Apache Avro}
+
+Apache Avro è un framework di serializzazione dati, nato all'interno del
+progetto Hadoop. Fornisce un formato binario compatto ed efficiente per
+la codifica dei dati, un sistema di schemi (definiti in formato JSON) che
+descrivono la struttura dei dati serializzati, e un meccanismo di
+\emph{schema evolution}, ovvero la possibilità di far comunicare tra loro
+versioni diverse dello stesso schema senza rompere la compatibilità.
+Quest'ultimo aspetto è direttamente rilevante per il progetto: una delle
+due classi analizzate (\texttt{Resolver}) implementa proprio la logica di
+risoluzione tra schema \emph{writer} e schema \emph{reader}.
+
+\subsection{Classi selezionate}
+
+La selezione delle classi è avvenuta applicando l'algoritmo di
+\emph{class ranking} descritto nella consegna, basato sull'iniziale del
+cognome dello studente applicata alla classifica dei code smell rilevati
+da SonarCloud sul progetto Apache Avro.
+
+Una prima classe candidata, è stata scartata per banalità, in accordo con l'indicazione della consegna di evitare
+classi il cui testing risulti banale o impraticabile.
+
+Le classi definitivamente selezionate sono:
+\begin{itemize}
+    \item \texttt{org.apache.avro.Resolver} (473 LOC, 25 code smell):
+    classe di utilità che confronta, ricorsivamente, l'albero dello
+    schema usato da chi ha \emph{scritto} i dati (\emph{writer}) con
+    l'albero dello schema atteso da chi li deve \emph{leggere}
+    (\emph{reader}). Per ogni coppia di nodi corrispondenti, determina
+    quale azione è necessaria per adattare i dati scritti al formato
+    atteso in lettura (nessuna azione, promozione di tipo, adattamento
+    di record/enum/union, oppure segnalazione di incompatibilità),
+    producendo un albero di oggetti \texttt{Resolver.Action}. È il
+    meccanismo alla base della \emph{schema evolution} di Avro, ovvero
+    la capacità di far comunicare correttamente produttori e
+    consumatori di dati che utilizzano versioni diverse dello stesso
+    schema;
+    \item \texttt{org.apache.avro.util.Utf8} (172 LOC, 8 code smell):
+    classe mutabile che rappresenta una sequenza di testo codificata
+    direttamente come array di byte UTF-8, anziché come \texttt{String}
+    Java (rappresentata internamente in UTF-16). Implementa le
+    interfacce \texttt{CharSequence}, \texttt{Comparable} ed
+    \texttt{Externalizable}, fornendo metodi per impostare e leggere il
+    contenuto, confrontare istanze e calcolarne l'hash. È utilizzata dal
+    modello dati generico di Avro per rappresentare i campi di tipo
+    stringa evitando le conversioni di codifica ripetute che
+    sarebbero necessarie utilizzando \texttt{String}.
+\end{itemize}

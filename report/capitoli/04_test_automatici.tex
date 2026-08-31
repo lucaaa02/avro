@@ -1,0 +1,223 @@
+% ============================================================
+% CAPITOLO 4 -- TEST AUTOMATICI
+% ============================================================
+\section{Test automatici}\label{sec:automatici}
+
+Oltre ai test manuali basati su Category-Partition, sono stati
+applicati tre approcci di generazione automatica dei test, ciascuno
+basato su un principio diverso: il \emph{random testing}, che genera
+input in modo casuale tramite reflection (Randoop); la generazione
+assistita da un modello di intelligenza artificiale (LLM), a
+partire da diverse formulazioni del prompt; la generazione
+\emph{coverage-guided}, che ottimizza la ricerca di nuovi test verso
+la massimizzazione della copertura del codice (EvoSuite). Per ciascuna
+classe, i tre approcci sono stati applicati e confrontati tra loro,
+evidenziando punti di forza e limiti complementari.
+\subsection{Test automatici su \texttt{Resolver}}
+
+\paragraph{Randoop}
+
+
+Randoop (versione 4.3.3) è uno strumento di \emph{feedback-directed
+random testing}: genera sequenze di chiamate a metodi con input
+casuali, sfruttando la reflection Java. Lo strumento richiede di essere
+eseguito con lo stesso JDK usato per compilare il progetto (JDK 11):
+se lanciato con una JVM più recente, genera codice che utilizza API non
+disponibili nella versione richiesta per la compilazione finale (ad
+esempio \texttt{isEmpty()} su \texttt{CharSequence}, introdotto in
+Java 15).
+
+Con un budget di generazione di 60 secondi sono stati generati 3508
+test, nessuno dei quali error-revealing. La \tabref{tab:randoop-results} 
+riporta i risultati numerici completi
+per entrambe le classi; le \tabref{fig:jacoco-resolver-randoop} e
+\tabref{fig:jacoco-utf8-randoop} mostrano il dettaglio per metodo. La
+copertura della sola suite Randoop, misurata isolatamente, risulta
+molto bassa su \texttt{Resolver}. La causa è che la maggior parte dei
+metodi coinvolti richiede come precondizione oggetti complessi
+(\texttt{Schema}, \texttt{GenericData}) che Randoop non è in grado di
+costruire autonomamente tramite reflection. I test generati seguono
+quasi tutti lo stesso pattern: costruzione di uno \texttt{Schema}
+vuoto o con argomenti \texttt{null}, invocazione di
+\texttt{resolve()} e cattura dell'eccezione risultante (tipicamente
+\texttt{NullPointerException}), raggiungendo il metodo solo al punto
+di ingresso senza mai esercitarne la logica decisionale interna.
+
+Dal punto di vista qualitativo, i test generati utilizzano nomi
+sequenziali privi di significato semantico (ad esempio \texttt{test1},
+\texttt{test2}), senza commenti né documentazione, con una struttura
+lineare di chiamate priva di separazione logica: comprendere l'intento
+di un singolo caso di test richiede la lettura dell'intera
+implementazione.
+
+\paragraph{Generazione tramite LLM}
+
+Sono stati utilizzati diversi prompt per sperimentare la generazione
+di test da parte di un LLM. L'IA utilizzata è stata Gemini,
+somministrando 3 prompt con quantità di contenuto crescente.
+Il testo completo dei tre prompt è riportato nella
+\tabref{tab:prompt-resolver}; la \tabref{tab:llm-resolver-results} ne
+riassume i risultati numerici, mentre la
+\tabref{fig:jacoco-resolver-llm} mostra il dettaglio di copertura per
+metodo della suite risultante (Prompt 2 e 3 combinati).
+
+Il primo prompt, formulato senza fornire il codice sorgente della
+classe, ha prodotto codice non compilabile: il modello ha introdotto
+due classi di eccezione inesistenti nel progetto e un nome di classe
+errato, presumibilmente per analogia con librerie di validazione più
+comuni. Il secondo prompt, che includeva il codice sorgente completo,
+non ha prodotto alcuna allucinazione sui nomi delle API utilizzate,
+richiedendo solo l'appiattimento di una struttura basata su
+\texttt{@Nested} (incompatibile con la configurazione Surefire del
+progetto): dopo questa correzione, tutti i 45 test generati sono
+risultati passanti. Il terzo prompt, che aggiungeva vincoli di
+progetto espliciti (assenza di \texttt{@Nested}, stile di
+formattazione, categorie di risoluzione da coprire sistematicamente),
+ha prodotto 13 test integrabili senza alcuna correzione.
+
+Il salto di qualità più rilevante si osserva tra il primo e il secondo
+prompt: la disponibilità del codice sorgente elimina quasi
+completamente le allucinazioni sui nomi delle API. Il passaggio dal
+secondo al terzo prompt migliora invece principalmente
+l'\emph{integrabilità} del codice generato, riducendo a zero gli
+interventi manuali necessari, più che la correttezza di base del
+codice prodotto.
+
+
+\paragraph{EvoSuite}
+
+EvoSuite è uno strumento per la generazione automatica di test guidata
+dalla copertura, eseguito con JDK 11 per lo stesso motivo riportato in
+precedenza per Randoop. La generazione è stata eseguita con un budget
+di 60 secondi, producendo 78 test. La \tabref{tab:evosuite-resolver}
+riassume i risultati, e la \tabref{fig:jacoco-resolver-evosuite} ne
+mostra il dettaglio per metodo.
+
+Durante la generazione, EvoSuite ha segnalato un test instabile
+(\emph{flaky}): un valore non deterministico utilizzato internamente
+nel nome di uno schema non risolto varia tra un'esecuzione e l'altra.
+
+La copertura, misurata isolatamente con JaCoCo, risulta pari
+all'88.5\% statement e all'84.2\% branch — la più alta tra le tre
+tecniche automatiche applicate a \texttt{Resolver}, risultato atteso
+poiché EvoSuite è l'unica delle tre esplicitamente guidata dal
+criterio di copertura durante la generazione.
+
+\subsection{Test automatici su \texttt{Utf8}}
+
+\paragraph{Randoop}
+
+Randoop è stato eseguito su \texttt{Utf8} con la stessa configurazione
+già descritta per \texttt{Resolver} (versione 4.3.3, JDK 11, budget di
+60 secondi), generando 2841 test, nessuno dei quali error-revealing.
+La \tabref{tab:randoop-results} riporta i risultati numerici completi
+per entrambe le classi; la \tabref{fig:jacoco-utf8-randoop} mostra il
+dettaglio per metodo.
+
+A differenza di \texttt{Resolver}, su \texttt{Utf8} Randoop ottiene una
+copertura molto più alta (79\% statement, 75\% branch). Il motivo è
+speculare a quanto osservato in precedenza: \texttt{Utf8} accetta
+input primitivi semplici (\texttt{String}, \texttt{byte[]}, interi),
+che Randoop riesce a costruire facilmente tramite reflection, senza
+dover generare oggetti compositi complessi come \texttt{Schema} e
+\texttt{GenericData}. Questo contrasto conferma empiricamente che il
+limite riscontrato su \texttt{Resolver} non è generale allo strumento,
+ma specifico ai domini con oggetti compositi articolati.
+\paragraph{Generazione tramite LLM}
+
+Sono stati sperimentati gli stessi tre tipi di interrogazioni già
+utilizzati per \texttt{Resolver}, con Gemini come modello. Il testo
+completo dei tre prompt è riportato nella \tabref{tab:prompt-utf8}; la
+\tabref{tab:llm-utf8-results} ne riassume i risultati numerici, mentre
+la \tabref{fig:jacoco-utf8-llm} mostra il dettaglio di copertura per
+metodo.
+
+A differenza di \texttt{Resolver}, il primo prompt (senza codice
+sorgente) non ha prodotto allucinazioni evidenti sui nomi dei metodi:
+un'ipotesi plausibile è che \texttt{Utf8}, essendo una classe
+pubblica ampiamente documentata e utilizzata negli esempi Avro, sia
+più "nota" al modello dal materiale di addestramento rispetto a una
+classe più interna come \texttt{Resolver}. Il secondo prompt ha
+prodotto 23 test, tutti passanti dopo l'appiattimento della struttura
+\texttt{@Nested}. Il terzo prompt ha prodotto 17 test, di cui 16
+integrabili senza correzioni: un singolo test è stato rimosso perché
+utilizzava un costruttore package-private non accessibile dal package
+in cui il test era stato collocato.
+
+La copertura della suite risultante (Prompt 2 e 3 combinati), misurata
+con JaCoCo, risulta pari al 97.1\% statement e al 95.5\% branch — la
+più alta tra le tre tecniche automatiche applicate a \texttt{Utf8}.
+
+\paragraph{EvoSuite}
+
+EvoSuite è stato eseguito su \texttt{Utf8} con la stessa
+configurazione già descritta per \texttt{Resolver} (JDK 11, budget di
+60 secondi), producendo 63 test. La \tabref{tab:evosuite-utf8}
+riassume i risultati, e la \tabref{fig:jacoco-utf8-evosuite} ne mostra
+il dettaglio per metodo.
+
+La copertura, misurata isolatamente con JaCoCo, risulta pari al
+95.2\% statement e al 95.5\% branch, sensibilmente più alta di quella
+ottenuta su \texttt{Resolver} (88.5\%/84.2\%) con lo stesso budget di
+ricerca. La differenza è coerente con quanto già osservato per le
+altre tecniche automatiche: \texttt{Utf8}, essendo una classe più
+piccola e con una logica meno ramificata rispetto a \texttt{Resolver},
+risulta più facilmente esplorabile a parità di tempo di generazione.
+
+\subsection{Integrazione tecnica di EvoSuite}
+
+L'integrazione di EvoSuite nel ciclo di build ha richiesto la
+risoluzione di diversi problemi tecnici, documentati di seguito per
+completezza metodologica.
+
+\paragraph{Compatibilità del bytecode in fase di generazione} La
+libreria di analisi bytecode inclusa in EvoSuite 1.2.0 (ASM) non è in
+grado di interpretare correttamente classi compilate per Java 21 (il
+JDK di default dell'ambiente di sviluppo), né alcune dipendenze del
+progetto distribuite come \emph{multi-release JAR} (contenenti più
+versioni di bytecode nello stesso archivio). La generazione è stata
+quindi eseguita compilando il progetto con \texttt{--release 11} e
+utilizzando esplicitamente il binario Java 11 per lanciare EvoSuite,
+dopo aver rimosso dal classpath le voci \texttt{META-INF/versions/*}
+dei JAR multi-release interessati.
+
+\paragraph{Dipendenza runtime non disponibile} L'esecuzione (non la
+sola generazione) dei test prodotti da EvoSuite richiede la libreria
+\texttt{evosuite-standalone-runtime}, non pubblicata su Maven Central
+nella versione necessaria. È stato aggiunto uno step dedicato nella
+pipeline di CI che scarica il JAR dalla release ufficiale su GitHub e
+lo installa nel repository Maven locale della macchina di build
+(\texttt{mvn install:install-file}) prima della compilazione,
+garantendo la riproducibilità della build anche in un ambiente pulito.
+
+\paragraph{Restrizioni di sicurezza della JVM} A partire da Java 18, la
+chiamata a \texttt{System.setSecurityManager(...)} -- utilizzata dal
+meccanismo di sandboxing di EvoSuite -- è vietata senza un'esplicita
+autorizzazione. È stato necessario aggiungere il flag
+\texttt{-Djava.security.manager=allow} all'\texttt{argLine} di
+Surefire; poiché tale configurazione non viene ereditata tra il
+\texttt{pom.xml} padre e quello del modulo (gli elementi di
+configurazione a valore singolo si sovrascrivono, non si concatenano),
+il flag deve essere dichiarato nel \texttt{pom.xml} del modulo
+effettivamente eseguito.
+
+\paragraph{Verifica del bytecode a runtime} L'esecuzione dei test
+EvoSuite su JDK 21 produceva un errore di verifica del bytecode
+(\texttt{VerifyError}), assente su JDK 11: il bytecode instrumentato
+da EvoSuite risulta incompatibile con le regole di verifica più
+recenti introdotte nelle JVM successive alla 11. È stato configurato
+un elemento \texttt{<jdkToolchain>} nel plugin Surefire, per forzare
+l'esecuzione dei test su JDK 11 indipendentemente dal JDK usato per
+compilare il resto del progetto.
+
+\paragraph{Inquinamento di stato tra classi di test} L'aggiunta dei
+test EvoSuite ha esposto, in modo intermittente e dipendente
+dall'ordine di esecuzione, un conflitto a livello di
+\texttt{ServiceLoader}: l'instrumentazione di EvoSuite carica alcuni
+provider SPI da un classloader diverso da quello atteso
+dall'interfaccia, corrompendo lo stato statico condiviso (in
+particolare la classe \texttt{LogicalTypes}) per l'intera durata del
+processo Surefire. La causa è stata individuata in risorse
+\texttt{META-INF/services} superflue, relative a test nativi del
+progetto già esclusi dall'esecuzione (Sezione 2.3): la loro rimozione
+dai \texttt{testResources} ha risolto il problema alla radice.

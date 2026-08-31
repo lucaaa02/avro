@@ -1,0 +1,150 @@
+% ============================================================
+% CAPITOLO 5 -- VALIDAZIONE QUALITÀ DEI TEST
+% ============================================================
+\section{Validazione della qualità dei test}\label{sec:adeguatezza}
+
+Le sezioni precedenti hanno applicato quattro famiglie di test alle
+due classi selezionate, senza tuttavia confrontarne sistematicamente
+l'efficacia. Questo capitolo affronta tale confronto su tre livelli
+complementari: quanto codice viene effettivamente eseguito da ciascuna
+famiglia di test (metriche di adeguatezza); quanto i test sono in
+grado di rilevare difetti introdotti artificialmente nel codice
+(mutation testing); e quale stima di affidabilità si può derivare
+dall'insieme finale di test disponibile (reliability).
+
+
+\subsection{Metriche di adeguatezza}
+
+Per confrontare quantitativamente l'efficacia delle quattro famiglie
+di test applicate a ciascuna classe (test manuali, Randoop, LLM,
+EvoSuite), sono state scelte due metriche di adeguatezza control-flow:
+\emph{Statement Coverage} e \emph{Branch Coverage}. La scelta di
+queste due metriche consente un confronto omogeneo con i dati già
+raccolti per EvoSuite nel capitolo precedente. Per ciascuna
+combinazione famiglia/classe, la copertura è stata misurata isolando
+l'esecuzione della sola famiglia in questione con JaCoCo, azzerando i
+dati di copertura precedenti prima di ogni misurazione. La
+\tabref{tab:adeguatezza-confronto} riporta i risultati completi.
+
+EvoSuite risulta la famiglia più efficace su entrambe le classi
+(88.5\% e 95.2\% statement coverage rispettivamente), risultato atteso
+poiché è l'unica delle quattro tecniche esplicitamente guidata dal
+criterio di copertura durante la generazione. La suite manuale (BB) è
+invece la meno efficace in termini di copertura strutturale (42.6\% e
+66.7\%): questo non indica una debolezza del category-partition come
+tecnica, ma riflette il fatto che le categorie individuate mirano a
+rappresentare gli scenari d'uso funzionali della classe, non a
+massimizzare la copertura di ogni riga o diramazione del codice.
+
+Il dato più rilevante emerso dal confronto è il comportamento di
+Randoop, che presenta un divario estremo tra le due classi: 79.0\%
+statement coverage su \texttt{Utf8}, contro appena l'1.6\% su
+\texttt{Resolver}. La causa è che Randoop costruisce gli input tramite
+reflection, riuscendo a generare valori primitivi (\texttt{String},
+\texttt{byte[]}) sufficienti a esercitare efficacemente \texttt{Utf8},
+ma non riuscendo a costruire per via casuale oggetti \texttt{Schema} e
+\texttt{GenericData} semanticamente validi, necessari per attraversare
+la logica di \texttt{Resolver.resolve()}. Questo risultato è coerente
+con un limite noto del random testing basato su reflection, quando
+applicato a domini con oggetti compositi articolati.
+
+Gli LLM si posizionano stabilmente al secondo posto su entrambe le
+classi (75.4\%/68.4\% su \texttt{Resolver}, 97.1\%/95.5\% su
+\texttt{Utf8}), superando sia la suite manuale sia Randoop: avendo
+accesso al codice sorgente e a vincoli di progetto espliciti, la
+generazione tramite LLM produce test sistematici che si avvicinano
+alla qualità di un approccio guidato dalla copertura, pur senza
+esserlo esplicitamente.
+
+
+\subsection{Mutation testing con PIT}\label{sec:mutation}
+
+Il mutation testing consiste nell'introdurre piccole modifiche
+artificiali nel bytecode compilato (\emph{mutanti}) e verificare se i
+test esistenti le rilevano: un mutante è detto \emph{ucciso} se
+almeno un test fallisce in sua presenza, \emph{sopravvissuto}
+altrimenti. A differenza delle metriche di adeguatezza discusse in
+precedenza, questa tecnica misura non solo quanto codice viene
+eseguito dai test, ma quanto efficacemente le loro asserzioni sono in
+grado di distinguere un comportamento corretto da uno alterato.
+L'analisi è stata condotta con PIT sulla sola suite di test manuali
+(BB), come richiesto dal punto 4b della consegna.
+
+\paragraph{Problemi di integrazione risolti} Sono emersi due problemi
+tecnici nell'integrazione di PIT nel progetto. Il primo (errore
+\texttt{MINION\_DIED}) era dovuto al placeholder \texttt{\$\{argLine\}}
+di Surefire, valorizzato solo quando il goal \texttt{jacoco:prepare-agent}
+viene eseguito nella stessa invocazione Maven: lanciando PIT da solo,
+il placeholder restava non risolto, causando un errore nei processi
+di misurazione di PIT. È stata dichiarata una property di progetto
+\texttt{<argLine></argLine>} vuota per risolvere il problema. Il
+secondo problema riguardava una mutation coverage 0\%/0\% falsa su
+\texttt{Utf8}: PIT esegue di base solo test JUnit 3/4, mentre
+\texttt{TestUtf8CategoryPartition} è scritta in JUnit 5. È stato
+necessario aggiungere la dipendenza \texttt{pitest-junit5-plugin} al
+plugin.
+
+\paragraph{Risultati iniziali} La \tabref{tab:pit-results} riassume i risultati numerici, mentre la
+\tabref{fig:pit-report} mostra il report generato da PIT. Sulla suite manuale di \texttt{Resolver}, PIT
+non ha rilevato alcun mutante sopravvissuto tra quelli coperti
+(Test Strength 100\%). Su \texttt{Utf8} sono invece emersi 12 mutanti
+sopravvissuti, concentrati sui metodi \texttt{equals()},
+\texttt{hashCode()}, \texttt{toString()} e \texttt{setByteLength()}.
+
+\paragraph{Test di rinforzo (MT)} Sono stati scritti 14 nuovi test
+manuali mirati a uccidere i 12 mutanti sopravvissuti su \texttt{Utf8}.
+Durante la loro progettazione sono emerse due scoperte metodologiche:
+un primo tentativo di verifica tramite confronto per identità di
+riferimento (\texttt{assertSame}) su una stringa vuota non uccideva il
+mutante corrispondente, poiché la JDK ottimizza tale caso restituendo
+comunque il letterale internato indipendentemente dal ramo di codice
+eseguito -- risolto verificando lo stato interno tramite reflection;
+inoltre, un test già presente nella suite BB non esercitava
+effettivamente il metodo \texttt{equals()} di \texttt{Utf8}, poiché
+il contratto di JUnit 5 poteva invocare \texttt{String.equals()}
+anziché \texttt{Utf8.equals()} per l'argomento fornito.
+
+Dei 12 mutanti target, 7 sono stati uccisi dai nuovi test. I restanti
+5 sono stati argomentati come mutanti \emph{equivalenti}: i due
+percorsi di calcolo di \texttt{equals()} e \texttt{hashCode()} (un
+ramo ottimizzato tramite \texttt{Arrays.equals}/\texttt{Arrays.hashCode}
+per array esattamente dimensionati, e un loop manuale byte-per-byte
+per gli altri casi) calcolano matematicamente lo stesso risultato per
+qualunque input valido, verificato empiricamente con test mirati
+proprio al confine tra i due rami. Dopo l'integrazione dei test MT, la
+mutation coverage di \texttt{Utf8} è salita al 56\% (33/59), con Test
+Strength dell'87\% (33/38).
+
+\subsection{Stima della reliability}
+
+La reliability di un sistema può essere stimata come
+$reliability = 1 - PFD$, dove $PFD$ (\emph{probability of failure on
+demand}) rappresenta la probabilità che un'operazione fallisca,
+assumendo un \emph{profilo operazionale} che assegna una probabilità
+di utilizzo a ciascuna operazione del sistema. In questo lavoro è
+stato adottato un profilo operazionale a probabilità uniforme.
+
+La scelta di quali operazioni considerare è stata guidata da un
+criterio di rappresentatività: anziché trattare ogni singolo test
+generato automaticamente come un'operazione a sé -- scelta che
+sovra-rappresenterebbe input casuali o degeneri rispetto a scenari
+d'uso plausibili, specialmente per i test prodotti da Randoop -- sono
+state utilizzate le categorie della suite di test manuali (BB) come
+operazioni rappresentative, ciascuna pesata uniformemente $1/N$.
+
+Su \texttt{Resolver}, le 8 categorie individuate risultano tutte
+associate a test passanti, con una Test Strength del 100\% rilevata
+dal mutation testing: la reliability stimata è pertanto pari a 1.0.
+Analogamente, su \texttt{Utf8} le 6 categorie risultano tutte associate
+a test passanti (suite BB e MT complessivamente), con una reliability
+stimata anch'essa pari a 1.0.
+
+Questo risultato va qualificato: rappresenta la reliability osservata
+rispetto al profilo operazionale definito dalle categorie testate, non
+una garanzia di correttezza sull'intero dominio di input della classe.
+L'analisi di mutation testing (Sezione~\ref{sec:mutation}) ha già
+mostrato che una parte dei mutanti generati da PIT non è coperta da
+alcun test della suite manuale: per le porzioni di codice
+corrispondenti non esiste evidenza sperimentale, e la stima di
+reliability vale quindi solo entro i limiti del profilo operazionale
+adottato.

@@ -1,0 +1,57 @@
+% ============================================================
+% CAPITOLO 7 -- CONCLUSIONI
+% ============================================================
+\section{Conclusioni}
+
+Il progetto ha applicato un insieme di tecniche di verifica software,
+manuali e automatiche, a due classi di un fork di Apache Avro:
+\texttt{Resolver}, che implementa la logica di risoluzione tra schema
+\emph{writer} e \emph{reader}, e \texttt{Utf8}, che rappresenta una
+sequenza di testo codificata direttamente in byte UTF-8. Per ciascuna
+classe sono stati sviluppati test manuali basati su Category-Partition,
+test generati automaticamente tramite random testing (Randoop),
+generazione assistita da un modello linguistico (LLM) e generazione
+guidata dalla copertura (EvoSuite); la qualità dei test è stata
+validata tramite metriche di adeguatezza, mutation testing (PIT) e
+una stima di reliability; infine, entrambe le classi sono state
+sottoposte a un refactoring in quattro varianti con contesto crescente,
+rilanciando tutte le famiglie di test sviluppate per verificarne la
+tenuta.
+
+I risultati più rilevanti emersi dal lavoro sono tre. In primo luogo,
+il random testing basato su reflection si è dimostrato fortemente
+dipendente dalla complessità del dominio di input: efficace su
+\texttt{Utf8} (79\% statement coverage), quasi inefficace su
+\texttt{Resolver} (1.6\%), a causa dell'incapacità di costruire
+autonomamente oggetti \texttt{Schema} semanticamente validi. In
+secondo luogo, la generazione tramite LLM ha mostrato un netto
+miglioramento di qualità in funzione del contesto fornito: da un
+tasso di allucinazione elevato in assenza del codice sorgente, fino a
+un'integrazione pressoché immediata quando il prompt include anche i
+vincoli specifici del progetto. In terzo luogo, e più significativamente,
+l'analisi del refactoring ha dimostrato empiricamente che nessuna
+singola tecnica di test è sufficiente a garantire la correttezza di
+una modifica al codice: su \texttt{Utf8} sono stati introdotti due
+difetti reali e distinti, ciascuno rilevabile da una sola delle cinque
+famiglie di test disponibili, a conferma che tecniche complementari
+esplorano porzioni diverse e non sovrapponibili dello spazio di input.
+
+Il lavoro presenta alcuni limiti. La valutazione degli \emph{smell} di
+codice nelle varianti rifattorizzate si è basata su un proxy locale
+(numero di righe di codice e punti di decisione), in assenza di
+un'analisi diretta con SonarCloud sulle versioni rifattorizzate. La
+validazione delle varianti rispetto alla famiglia Randoop ha utilizzato
+un campione della suite generata, anziché la sua totalità, per ragioni
+di tempo di esecuzione. Infine, è stato riscontrato un limite tecnico
+strutturale tra PIT ed EvoSuite (conflitto tra il meccanismo di
+\emph{HotSwap} e l'instrumentazione a runtime), che ha impedito di
+calcolare il mutation score della suite EvoSuite in tutte le
+configurazioni analizzate.
+
+Sviluppi futuri del lavoro potrebbero includere l'estensione
+dell'analisi di qualità del codice alle varianti rifattorizzate
+tramite SonarCloud, l'esecuzione della validazione Randoop sull'intera
+suite generata anziché su un campione, e un approfondimento della
+causa tecnica del conflitto tra PIT ed EvoSuite, valutando eventuali
+configurazioni alternative del motore di mutazione in grado di
+superare l'incompatibilità riscontrata.

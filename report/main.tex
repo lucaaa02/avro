@@ -1,0 +1,77 @@
+\documentclass[10pt,a4paper]{article}
+
+% ============================================================
+% FORMATTAZIONE RICHIESTA DALLA CONSEGNA: Arial 10pt, interlinea singola
+% ============================================================
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{helvet}                  % Helvetica: sostituto metricamente equivalente ad Arial
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{geometry}
+\geometry{a4paper, margin=2.2cm}
+\usepackage{setspace}
+\singlespacing
+
+% ============================================================
+% PACCHETTI PER TABELLE E FIGURE
+% ============================================================
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=black}
+\usepackage[italian,nameinlink]{cleveref}
+\usepackage{xcolor}
+% \cref imposta internamente il colore a linkcolor (nero) perché colorlinks=true:
+% un \textcolor esterno verrebbe sovrascritto. Si ridefinisce linkcolor localmente
+% (in un gruppo) solo per la durata del riferimento.
+\newcommand{\tabref}[1]{\textbf{\begingroup\hypersetup{linkcolor=red!70!black}\cref{#1}\endgroup}}
+\usepackage{enumitem}
+\setlist{nosep, itemsep=1pt}         
+% Riduce lo spazio verticale attorno ai titoli di sezione (documento denso)
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{8pt}{4pt}
+\titlespacing*{\subsection}{0pt}{6pt}{3pt}
+
+\title{\vspace{-1.5cm}Report di Progetto -- ISW2 Modulo 2\\[2pt]\large Software Testing su Apache Avro (fork \texttt{lucaaa02})}
+\author{[Nome Cognome] -- [Matricola]}
+\date{[Data]}
+
+\begin{document}
+\maketitle
+\vspace{-1cm}
+\pagenumbering{roman} 
+\tableofcontents
+\newpage
+\pagenumbering{arabic} 
+\setcounter{page}{1}
+% ============================================================
+% CAPITOLI -- un file per capitolo, dentro la cartella capitoli/
+% Decommentare via via che i file vengono creati.
+% ============================================================
+\input{capitoli/01_introduzione}
+\input{capitoli/02_infrastruttura}
+\input{capitoli/03_test_manuali}
+\input{capitoli/04_test_automatici}
+\input{capitoli/05_validazione_qualita}
+\input{capitoli/06_refactoring}
+\input{capitoli/07_conclusioni}
+
+% ============================================================
+% APPENDICE -- tabelle, figure, listati di codice.
+% Per indicazione esplicita della consegna, questo materiale non
+% viene conteggiato ai fini della lunghezza del report (~12 pagine),
+% ma va comunque discusso nel corpo dei capitoli soprastanti tramite
+% riferimenti incrociati (\ref{}). Le tabelle/figure NON devono
+% contenere testo esplicativo: solo dati, con didascalia minima.
+% ============================================================
+\clearpage
+\pagenumbering{roman}  
+\setcounter{page}{1}
+\appendix
+\section{Tabelle, figure e listati}
+\input{capitoli/99_appendice}
+
+\end{document}

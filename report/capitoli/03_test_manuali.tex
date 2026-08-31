@@ -1,0 +1,238 @@
+% ============================================================
+% CAPITOLO 3 -- TEST MANUALI (CATEGORY PARTITION)
+% ============================================================
+\section{Test manuali (Category Partition)}
+
+La tecnica Category-Partition è un metodo di progettazione di test
+black-box che procede in quattro fasi: identificazione dei domini di
+input della funzionalità sotto test, a partire dalla documentazione o
+dal comportamento atteso; derivazione, per ciascun dominio, delle
+classi di equivalenza, ovvero sottoinsiemi di valori per cui ci si
+aspetta un comportamento omogeneo; combinazione delle classi di
+equivalenza individuate per i diversi parametri, per ottenere le
+combinazioni di input da testare; eliminazione delle combinazioni
+prive di senso o non raggiungibili nella pratica. Per ciascuna
+combinazione ammissibile risultante viene infine progettato un singolo
+caso di test.
+
+Questa tecnica è stata applicata a entrambe le classi selezionate,
+individuando per ciascuna un insieme di categorie corrispondenti alle
+diverse configurazioni di comportamento osservabile. Le sezioni
+seguenti descrivono, per ciascuna classe, la struttura interna
+rilevante ai fini del testing, le categorie individuate e i risultati
+ottenuti.
+
+\subsection{La classe \texttt{Resolver}}
+La classe \texttt{Resolver} è una classe che si occupa di determinare
+come adattare i dati scritti in uno schema (\emph{writer}) a uno schema
+di lettura (\emph{reader}) potenzialmente diverso. Implementa un
+algoritmo in grado di confrontare ricorsivamente gli alberi degli schemi
+e produrre un albero di azioni necessarie per la conversione dei dati.
+
+Il risultato prodotto è un'istanza della classe astratta
+\texttt{Resolver.Action}, il cui tipo concreto a runtime determina la
+specifica trasformazione da applicare: \texttt{Action} non viene mai
+istanziata direttamente, ma sempre tramite una delle sue sottoclassi.
+La \tabref{tab:resolver-action-categorie} riassume quali sono i
+possibili tipi di azioni che la classe può restituire.
+
+\subsection{Test manuali su \texttt{Resolver}}
+
+Il metodo \texttt{resolve()} accetta due parametri principali:
+lo schema del \emph{writer} e lo schema del \emph{reader} (un terzo
+parametro opzionale, \texttt{GenericData}, interviene solo nel recupero
+di valori di default e conversioni logiche, e non introduce ulteriori
+categorie di comportamento rilevanti ai fini del testing). Il criterio
+di testing adottato si è basato sull'interazione tra le diverse
+combinazioni possibili di questi due parametri. Sono state individuate
+otto categorie di test, ciascuna corrispondente a una delle otto
+sottoclassi di \texttt{Resolver.Action} discusse in precedenza.
+
+L'approccio adottato è prevalentemente black-box, dato che le regole di
+comportamento attese (quali promozioni numeriche sono ammesse, come si
+risolvono record, enum e union) derivano dalla specifica pubblica di
+schema evolution di Avro. Tuttavia, la \emph{verifica} del risultato in
+ciascun test avviene tramite l'operatore \texttt{instanceof} su nomi di
+classi concrete interne (ad esempio \texttt{Resolver.DoNothing},
+\texttt{Resolver.Promote}), informazione non derivabile dalla sola
+documentazione esterna: la progettazione dei casi di test è quindi
+black-box, mentre la loro implementazione richiede un elemento di
+conoscenza white-box del codice sorgente.
+
+\begin{itemize}
+    \item \textbf{DoNothing}: verificata su tutti gli otto tipi
+    primitivi di Avro, con schemi identici tra writer e reader.
+    \item \textbf{Promote}: verificato che le promozioni numeriche
+    valide (ad esempio \texttt{INT}$\to$\texttt{LONG},
+    \texttt{FLOAT}$\to$\texttt{DOUBLE}) producano l'azione corretta, e
+    che le promozioni non valide generino invece un errore.
+    \item \textbf{ErrorAction}: verificato che le incompatibilità
+    irrisolvibili tra i due schemi generino correttamente un errore.
+    \item \textbf{Container}: verificato che, per \texttt{ARRAY} e
+    \texttt{MAP}, la risoluzione ricorsiva degli elementi interni
+    funzioni correttamente.
+    \item \textbf{EnumAdjust}: verificato che la rimappatura dei
+    simboli tra writer e reader funzioni correttamente.
+    \item \textbf{RecordAdjust}: verificato che la risoluzione campo
+    per campo del record funzioni correttamente.
+    \item \textbf{ReaderUnion}: verificato che la ricerca del ramo
+    della union compatibile con il tipo scritto funzioni correttamente.
+    \item \textbf{WriterUnion}: verificato che la risoluzione di ogni
+    possibile ramo scritto dal writer rispetto al reader funzioni
+    correttamente.
+\end{itemize}
+
+Per alcune categorie, in particolare \texttt{Promote}, i valori
+scelti per i test non sono stati selezionati arbitrariamente
+all'interno della categoria, ma rappresentano i confini tra
+comportamento valido e non valido: per ogni promozione numerica
+valida testata (ad esempio \texttt{INT}$\to$\texttt{LONG}), è stata
+verificata anche la direzione opposta, non valida
+(\texttt{LONG}$\to$\texttt{INT}), proprio in corrispondenza del limite
+tra le due categorie. La \tabref{tab:resolver-boundary-values} riporta,
+per ciascuna categoria, i valori concreti utilizzati nella
+progettazione dei test.
+
+In totale sono stati scritti ed eseguiti 32 test manuali, tutti
+passanti: non è emersa alcuna anomalia comportamentale in questa fase.
+La \tabref{tab:resolver-elenco-test} riporta l'elenco completo dei 32
+test, con l'input e l'assert atteso per ciascuno. I test sono
+collocati nel file \texttt{TestResolverCategoryPartition.java},
+all'interno del package \texttt{org.apache.avro} del progetto.
+
+
+\subsection{Copertura strutturale di \texttt{resolver}}
+
+I dati di copertura sono stati misurati con JaCoCo, isolando
+l'esecuzione della sola suite di test manuali. La
+\tabref{tab:bb-coverage} riporta i valori di \emph{statement coverage}
+(42.6\%) e \emph{branch coverage} (31.6\%) ottenuti; la
+\tabref{fig:jacoco-resolver-bb} mostra il dettaglio per metodo.
+
+La copertura risultante è parziale: il category-partition, per sua
+natura, individua le categorie a partire dalle funzionalità e dal
+comportamento atteso della classe, non dall'obiettivo di massimizzare
+la copertura di ogni singola riga o diramazione del codice. Una
+copertura non completa non indica quindi una debolezza della suite, ma
+una caratteristica intrinseca della tecnica adottata: la relazione tra
+copertura strutturale e adeguatezza dei test manuali rispetto alle
+altre tecniche impiegate viene approfondita nel
+Capitolo~\ref{sec:adeguatezza}, mentre i mutanti sopravvissuti nelle
+porzioni di codice non coperte sono discussi nel
+Capitolo~\ref{sec:mutation}.
+
+\subsection{La classe \texttt{Utf8}}
+
+La classe \texttt{Utf8} si occupa di rappresentare una sequenza di
+testo direttamente come byte codificati in UTF-8. In Java, il tipo
+\texttt{String} è rappresentato internamente come una sequenza di
+caratteri UTF-16: se un dato testuale dovesse essere sempre convertito
+da \texttt{String} a byte UTF-8 e viceversa, si introdurrebbe un costo
+computazionale ripetuto e spesso non necessario. La classe \texttt{Utf8}
+risolve questo problema rappresentando direttamente il testo come byte
+UTF-8, evitando conversioni superflue e convertendo in \texttt{String}
+solo quando effettivamente richiesto.
+
+La classe implementa tre interfacce:
+\begin{itemize}
+    \item \texttt{CharSequence}: consente di trattare l'istanza come
+    se fosse testo, fornendo metodi quali \texttt{length()},
+    \texttt{charAt()} e \texttt{subSequence()};
+    \item \texttt{Comparable<Utf8>}: permette il confronto tra due
+    istanze ai fini dell'ordinamento;
+    \item \texttt{Externalizable}: fornisce un meccanismo di
+    serializzazione a basso livello, tramite i metodi
+    \texttt{writeExternal} e \texttt{readExternal}.
+\end{itemize}
+
+Gli attributi principali della classe sono: un array di byte
+(\texttt{bytes}), contenente la rappresentazione UTF-8 del testo; un
+intero (\texttt{length}), che indica quanti byte dell'array sono
+effettivamente utilizzati (l'array può essere più grande della
+lunghezza logica del contenuto, per consentire il riutilizzo della
+stessa area di memoria a fronte di modifiche successive); una cache
+opzionale della \texttt{String} corrispondente; una cache opzionale
+dell'hash calcolato.
+
+La \tabref{tab:utf8-metodi} elenca i metodi pubblici principali della
+classe.
+
+\subsection{Test manuali su \texttt{Utf8}}
+
+La classe \texttt{Utf8} è composta da più metodi indipendenti: sono
+state definite sei categorie di test, raggruppate per area funzionale
+correlata.
+
+\begin{itemize}
+    \item \textbf{Costruzione}: verificata la corretta inizializzazione
+    dell'istanza a partire da ciascuna delle modalità di creazione
+    disponibili (costruttore vuoto, da stringa vuota, ASCII e Unicode,
+    da stringa \texttt{null}, di copia, da array di byte vuoto e
+    ASCII).
+    \item \textbf{Uguaglianza e ordinamento}: verificato il
+    comportamento di \texttt{equals()} e \texttt{compareTo()} rispetto
+    alla stessa istanza, a contenuto identico, a contenuto diverso a
+    parità di lunghezza, a lunghezza diversa, e nel confronto con
+    \texttt{null} o con un oggetto di tipo diverso. Per questa
+    categoria, l'approccio adottato non è stato puramente black-box:
+    \texttt{equals()} e \texttt{hashCode()} implementano internamente
+    due percorsi di calcolo distinti, uno ottimizzato per array
+    esattamente dimensionati e uno tramite loop manuale, con soglia
+    di attivazione a 7 byte. L'individuazione di questo confine ha
+    richiesto un'ispezione mirata del codice sorgente, introducendo
+    un elemento di conoscenza white-box a supporto della
+    progettazione dei casi di test limite.
+    \item \textbf{Gestione della lunghezza}: verificato il
+    comportamento di \texttt{setByteLength()} in aumento, in
+    diminuzione, a lunghezza invariata e nel caso limite di
+    azzeramento.
+    \item \textbf{\texttt{CharSequence}}: verificato il comportamento
+    di \texttt{charAt()} (primo carattere, ultimo carattere, indice
+    fuori intervallo) e di \texttt{subSequence()} (intervallo vuoto,
+    valido, non valido).
+    \item \textbf{Serializzazione}: verificato che una coppia di
+    operazioni \texttt{writeExternal}/\texttt{readExternal}
+    (round-trip) preservi correttamente il contenuto, su un'istanza
+    vuota, su contenuto ASCII e su contenuto Unicode.
+    \item \textbf{\texttt{getBytesFor}}: verificato il comportamento
+    del metodo statico di utilità su stringa vuota, stringa ASCII,
+    stringa Unicode e argomento \texttt{null}.
+\end{itemize}
+
+La \tabref{tab:utf8-elenco-test} riporta l'elenco completo dei 35 test,
+con l'input/azione e l'assert atteso per ciascuno.
+
+In totale sono stati scritti ed eseguiti 35 test manuali. La scoperta
+emersa dal test relativo alla gestione della lunghezza in aumento è
+discussa nel dettaglio nella sezione successiva.
+\subsection{Scoperta: anomalia di \texttt{setByteLength}}
+
+Il test T19, relativo alla gestione della lunghezza in aumento tramite
+il metodo \texttt{setByteLength()}, ha evidenziato un'anomalia nel
+comportamento della classe \texttt{Utf8}. In particolare, quando si
+aumenta la lunghezza logica di un'istanza già popolata, ci si
+aspetterebbe che il contenuto originale venga preservato e che i nuovi
+byte aggiunti siano inizializzati a zero. Il test ha invece mostrato
+che il contenuto originale viene azzerato, restituendo l'intero buffer
+vuoto anziché esteso.
+
+La scoperta è avvenuta empiricamente: l'assert inizialmente scritto,
+basato sull'aspettativa di preservazione del contenuto, falliva
+all'esecuzione. Il test è stato mantenuto, riformulato per verificare
+il comportamento realmente osservato, poiché ha permesso di scoprire
+questo comportamento anomalo, che sarebbe altrimenti passato
+inosservato.
+
+
+
+\subsection{Copertura strutturale di \texttt{utf8}}
+I dati di copertura sono stati misurati con JaCoCo, isolando
+l'esecuzione della sola suite di test manuali. La
+\tabref{tab:bb-coverage} riporta i valori di \emph{statement coverage}
+(66.7\%) e \emph{branch coverage} (43.2\%) ottenuti; la
+\tabref{fig:jacoco-utf8-bb} mostra il dettaglio per metodo.
+
+Anche in questo caso la copertura risulta parziale, per lo stesso
+motivo discusso per \texttt{Resolver}: le categorie individuate
+rappresentano il comportamento funzionale atteso della classe, non un
+obiettivo di copertura strutturale completa.

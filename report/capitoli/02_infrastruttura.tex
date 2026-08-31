@@ -1,0 +1,57 @@
+% ============================================================
+% CAPITOLO 2 -- INFRASTRUTTURA DI PROGETTO
+% ============================================================
+\section{Infrastruttura di progetto}
+
+\subsection{Build e gestione delle dipendenze}
+
+Il progetto Avro è organizzato come progetto multi-modulo Maven, con un
+file \texttt{pom.xml} principale che coordina i sotto-progetti, tra cui
+il modulo \texttt{lang/java/avro/}, dove abbiamo lavorato, che contiene
+le classi \texttt{Resolver} e \texttt{Utf8} selezionate per il testing.
+
+È stato necessario l'utilizzo di tre versioni diverse del JDK: 11, 17 e
+21. Il progetto Avro richiede infatti la compatibilità con JDK 11 per il
+codice compilato; inoltre, Randoop ed EvoSuite, generando codice sulla
+base della JVM su cui vengono eseguiti, devono essere lanciati anch'essi
+con JDK 11, per evitare di generare riferimenti a metodi non disponibili
+nella versione richiesta per la compilazione finale. Le versioni JDK 17
+e 21 sono invece necessarie per compilare ed eseguire il progetto nelle
+altre fasi della build.
+
+\subsection{Integrazione continua e misurazione della copertura}
+
+È stata configurata un'integrazione continua tramite GitHub Actions: ad
+ogni \texttt{push} sul branch principale, il file di configurazione
+\texttt{isw2-ci.yml} esegue automaticamente una serie di step, tra cui
+la compilazione del progetto e l'esecuzione dei test su una macchina
+virtuale remota. Per la misurazione della copertura è stato utilizzato
+JaCoCo, analizzando le metriche di statement e branch coverage, mentre
+SonarCloud è stato integrato come supporto per l'analisi della qualità
+del codice.
+
+L'integrazione continua si è rivelata utile per individuare problemi non
+visibili nell'ambiente di sviluppo locale: in particolare, un conflitto
+tra il JDK usato per la compilazione in CI (JDK 21) e il codice generato
+da EvoSuite (eseguibile correttamente solo su JDK 11) si è manifestato
+soltanto durante l'esecuzione su GitHub Actions.
+
+Sono stati inoltre utilizzati Spotless e Apache RAT per garantire la
+qualità del codice e la conformità alle licenze. Spotless applica
+automaticamente le regole di formattazione del progetto (indentazione,
+ordine degli import), mentre Apache RAT verifica che ogni file sorgente
+contenga l'header di licenza Apache 2.0, in linea con le politiche della
+Apache Software Foundation. Entrambi i controlli vengono eseguiti prima
+della fase di test, durante la compilazione: un file che non li rispetta
+blocca l'intera build, indipendentemente dal fatto che i suoi test
+vengano poi effettivamente eseguiti. Poiché i file di test generati
+automaticamente da Randoop ed EvoSuite non rispettano lo stile del
+progetto né includono l'header di licenza, è stato necessario
+configurare esclusioni esplicite per queste cartelle in entrambi gli
+strumenti.
+
+\subsection{Isolamento dei test del progetto}
+
+L'esecuzione dei test già presenti nel progetto è stata disabilitata,
+mantenendo attiva una suite di test composta unicamente dai test
+sviluppati per questo lavoro.
