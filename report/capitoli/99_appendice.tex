@@ -586,3 +586,20 @@ Punti di decisione & 27 & 24 & 24 & 27 & 25 \\
 \caption{Delta di coverage, mutation score e proxy di smell tra C0 e le varianti C1-C4 di \texttt{Utf8}. $^1$Misurato solo su BB+MT (2 famiglie su 5). $^2$PIT rifiuta l'esecuzione: la suite MT non è verde su C1/C2.}
 \label{tab:utf8-refactor-delta}
 \end{table}
+
+\begin{table}[h]
+\centering
+\footnotesize
+\begin{tabular}{p{2.2cm}p{4.4cm}p{6.4cm}}
+\toprule
+\textbf{Famiglia} & \textbf{Naming dei metodi di test} & \textbf{Evidenza osservata nel codice generato} \\
+\midrule
+BB / MT & Descrittivo, per categoria (es. \texttt{testSetByteLengthAumento}) & Scritti manualmente; commento di intento su ogni test \\
+LLM (Prompt 2--3) & Descrittivo (es. \texttt{testSetByteLengthExpansion}, \texttt{testCopyConstructor}) & \texttt{@DisplayName} in linguaggio naturale; commento di categoria per test (Prompt 3) \\
+Randoop & Sequenziale (\texttt{test0001}, \texttt{test0002}, \dots) & Commenti solo automatici (``\emph{The following exception was thrown during execution...}''), non di intento \\
+EvoSuite & Sequenziale (\texttt{test00}, \texttt{test01}, \dots) & Nessun commento descrittivo; input spesso stringhe casuali prive di significato (es. \texttt{"-5.6D8[[?\%/nW,u\#G"}) \\
+\bottomrule
+\end{tabular}
+\caption{Caratterizzazione qualitativa della leggibilità dei test prodotti da ciascuna famiglia, basata su ispezione diretta del codice sorgente generato in entrambe le classi.}
+\label{tab:test-clarity}
+\end{table}

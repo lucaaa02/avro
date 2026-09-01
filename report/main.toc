@@ -38,6 +38,7 @@
 \contentsline {section}{\numberline {6}Refactoring e validazione incrociata}{8}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Refactoring di \texttt {Resolver}}{8}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Refactoring di \texttt {Utf8}}{9}{subsection.6.2}%
+\contentsline {paragraph}{Leggibilità dei test}{9}{subsection.6.2}%
 \contentsline {subsection}{\numberline {6.3}Sintesi}{10}{subsection.6.3}%
 \contentsline {section}{\numberline {7}Conclusioni}{10}{section.7}%
 \contentsline {section}{\numberline {A}Tabelle, figure e listati}{i}{appendix.A}%
