@@ -11,7 +11,7 @@
 \contentsline {subsection}{\numberline {3.3}Copertura strutturale di \texttt {resolver}}{3}{subsection.3.3}%
 \contentsline {subsection}{\numberline {3.4}La classe \texttt {Utf8}}{3}{subsection.3.4}%
 \contentsline {subsection}{\numberline {3.5}Test manuali su \texttt {Utf8}}{3}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Scoperta: anomalia di \texttt {setByteLength}}{4}{subsection.3.6}%
+\contentsline {subsection}{\numberline {3.6}Scoperta: comportamento non intuitivo di \texttt {setByteLength}}{4}{subsection.3.6}%
 \contentsline {subsection}{\numberline {3.7}Copertura strutturale di \texttt {utf8}}{4}{subsection.3.7}%
 \contentsline {section}{\numberline {4}Test automatici}{4}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Test automatici su \texttt {Resolver}}{4}{subsection.4.1}%
@@ -21,7 +21,7 @@
 \contentsline {subsection}{\numberline {4.2}Test automatici su \texttt {Utf8}}{5}{subsection.4.2}%
 \contentsline {paragraph}{Randoop}{5}{subsection.4.2}%
 \contentsline {paragraph}{Generazione tramite LLM}{5}{subsection.4.2}%
-\contentsline {paragraph}{EvoSuite}{5}{subsection.4.2}%
+\contentsline {paragraph}{EvoSuite}{6}{subsection.4.2}%
 \contentsline {subsection}{\numberline {4.3}Integrazione tecnica di EvoSuite}{6}{subsection.4.3}%
 \contentsline {paragraph}{Compatibilità del bytecode in fase di generazione}{6}{subsection.4.3}%
 \contentsline {paragraph}{Dipendenza runtime non disponibile}{6}{subsection.4.3}%
@@ -29,15 +29,15 @@
 \contentsline {paragraph}{Verifica del bytecode a runtime}{6}{subsection.4.3}%
 \contentsline {paragraph}{Inquinamento di stato tra classi di test}{6}{subsection.4.3}%
 \contentsline {section}{\numberline {5}Validazione della qualità dei test}{6}{section.5}%
-\contentsline {subsection}{\numberline {5.1}Metriche di adeguatezza}{6}{subsection.5.1}%
+\contentsline {subsection}{\numberline {5.1}Metriche di adeguatezza}{7}{subsection.5.1}%
 \contentsline {subsection}{\numberline {5.2}Mutation testing con PIT}{7}{subsection.5.2}%
 \contentsline {paragraph}{Problemi di integrazione risolti}{7}{subsection.5.2}%
 \contentsline {paragraph}{Risultati iniziali}{7}{subsection.5.2}%
 \contentsline {paragraph}{Test di rinforzo (MT)}{7}{subsection.5.2}%
-\contentsline {subsection}{\numberline {5.3}Stima della reliability}{7}{subsection.5.3}%
+\contentsline {subsection}{\numberline {5.3}Stima della reliability}{8}{subsection.5.3}%
 \contentsline {section}{\numberline {6}Refactoring e validazione incrociata}{8}{section.6}%
 \contentsline {subsection}{\numberline {6.1}Refactoring di \texttt {Resolver}}{8}{subsection.6.1}%
 \contentsline {subsection}{\numberline {6.2}Refactoring di \texttt {Utf8}}{9}{subsection.6.2}%
-\contentsline {subsection}{\numberline {6.3}Sintesi}{9}{subsection.6.3}%
+\contentsline {subsection}{\numberline {6.3}Sintesi}{10}{subsection.6.3}%
 \contentsline {section}{\numberline {7}Conclusioni}{10}{section.7}%
 \contentsline {section}{\numberline {A}Tabelle, figure e listati}{i}{appendix.A}%

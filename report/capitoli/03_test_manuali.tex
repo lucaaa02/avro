@@ -205,24 +205,49 @@ con l'input/azione e l'assert atteso per ciascuno.
 In totale sono stati scritti ed eseguiti 35 test manuali. La scoperta
 emersa dal test relativo alla gestione della lunghezza in aumento è
 discussa nel dettaglio nella sezione successiva.
-\subsection{Scoperta: anomalia di \texttt{setByteLength}}
+\subsection{Scoperta: comportamento non intuitivo di \texttt{setByteLength}}
 
 Il test T19, relativo alla gestione della lunghezza in aumento tramite
-il metodo \texttt{setByteLength()}, ha evidenziato un'anomalia nel
-comportamento della classe \texttt{Utf8}. In particolare, quando si
-aumenta la lunghezza logica di un'istanza già popolata, ci si
-aspetterebbe che il contenuto originale venga preservato e che i nuovi
-byte aggiunti siano inizializzati a zero. Il test ha invece mostrato
-che il contenuto originale viene azzerato, restituendo l'intero buffer
-vuoto anziché esteso.
+il metodo \texttt{setByteLength()}, ha rivelato un comportamento non
+intuitivo nella classe \texttt{Utf8}. In particolare, quando si aumenta
+la lunghezza logica di un'istanza già popolata oltre la capacità
+fisica del buffer interno, ci si aspetterebbe che il contenuto
+originale venga preservato e che i nuovi byte aggiunti siano
+inizializzati a zero. Il test ha invece mostrato che, in questo caso,
+l'intero buffer viene riallocato e azzerato, perdendo il contenuto
+precedente.
 
-La scoperta è avvenuta empiricamente: l'assert inizialmente scritto,
-basato sull'aspettativa di preservazione del contenuto, falliva
-all'esecuzione. Il test è stato mantenuto, riformulato per verificare
-il comportamento realmente osservato, poiché ha permesso di scoprire
-questo comportamento anomalo, che sarebbe altrimenti passato
-inosservato.
+La scoperta è avvenuta empiricamente e in modo puramente black-box:
+l'assert inizialmente scritto, basato sull'aspettativa naturale di
+preservazione del contenuto, falliva all'esecuzione. Solo in un
+secondo momento, ispezionando il codice sorgente, è emerso che questo
+comportamento è noto e documentato internamente dagli sviluppatori di
+Avro tramite un commento nel metodo (non riportato nella Javadoc
+pubblica): se il buffer deve crescere, viene riallocato e azzerato;
+se invece la nuova lunghezza rientra nella capacità già allocata, il
+puntatore di lunghezza si sposta semplicemente, lasciando intatto il
+contenuto precedente. Gli autori descrivono esplicitamente questa
+asimmetria come un compromesso deliberato a favore delle prestazioni,
+per evitare di azzerare il buffer anche quando non è strettamente
+necessario.
 
+Questo comportamento, sebbene intenzionale, comporta un'implicazione
+di correttezza più sottile rispetto al solo azzeramento in fase di
+espansione: se un'istanza viene prima ridotta e poi nuovamente
+espansa entro la capacità già allocata, il buffer non viene azzerato,
+ed è possibile che restino byte residui (\emph{stale}) risalenti al
+contenuto precedente alla riduzione. Un chiamante che assumesse che i
+byte aggiunti in espansione siano sempre azzerati potrebbe quindi
+osservare dati non pertinenti senza che ciò generi alcun errore
+visibile. Questo scenario specifico è stato oggetto di un test
+dedicato nella suite di mutation testing (Sezione~\ref{sec:mutation}).
+
+Il test T19 è stato mantenuto, riformulato per verificare il
+comportamento realmente osservato: la scoperta dimostra il valore
+della metodologia black-box nel far emergere, in modo indipendente
+dalla conoscenza dell'implementazione, discrepanze tra il
+comportamento atteso da un utilizzatore della classe e il
+comportamento documentato internamente ma non esposto pubblicamente.
 
 
 \subsection{Copertura strutturale di \texttt{utf8}}
