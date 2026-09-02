@@ -28,8 +28,6 @@ import static org.junit.Assert.*;
 
 /**
  * Test manuali basati su Category-Partition per org.apache.avro.Resolver.
- *
- * 
  */
 public class TestResolverCategoryPartition {
 

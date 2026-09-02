@@ -13,13 +13,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Test manuali "MT" (mutation-testing-reinforced) per {@link Utf8}, scritti per
+ * Test manuali "MT" (mutation-testing-reinforced) per Utf8, scritti per
  * uccidere i 12 mutanti sopravvissuti alla suite BB
- * (TestUtf8CategoryPartition), individuati da PIT (punto 4b della consegna).
- *
- * Ogni metodo indica in commento la riga/mutante PIT che intende uccidere.
- * Nota: la struttura e' "piatta" (nessuna classe @Nested) per lo stesso motivo
- * di TestUtf8CategoryPartition (Surefire esclude **&#47;*$*).
  */
 class TestUtf8MutationReinforced {
 
@@ -43,14 +38,7 @@ class TestUtf8MutationReinforced {
   // perche' new String(bytes,0,0,UTF_8) puo' essere ottimizzato dalla JDK e
   // restituire comunque il letterale internato per un range vuoto - il
   // valore di ritorno da solo non e' quindi un osservabile affidabile.
-  //
-  // Osservabile affidabile: lo stato INTERNO. Usando il costruttore
-  // Utf8(byte[]) - che, a differenza di Utf8(String), NON pre-imposta il
-  // campo cache "string" - il campo resta null finche' nessuno lo tocca. Se
-  // il controllo length==0 e' disabilitato, il codice cade nel ramo
-  // successivo e SCRIVE il campo "string" (anche se il valore scritto
-  // "equals" a ""); il codice originale, ritornando subito, non lo tocca
-  // mai. Verifichiamo il campo via reflection.
+
   // ---------------------------------------------------------------
 
   @Test // riga 148: il campo cache "string" non deve essere scritto per il ramo vuoto
@@ -238,7 +226,7 @@ class TestUtf8MutationReinforced {
   //
   // Coperto da tutti i test hashCode_* sopra che asseriscono un valore
   // esatto diverso da zero; aggiungiamo un caso esplicito e minimale.
-  // ---------------------------------------------------------------
+  // ---------------------------------------------------------------z
 
   @Test // riga 194: hashCode di istanza non vuota non deve mai essere 0
   void hashCode_nonEmptyInstance_isNeverZero() {

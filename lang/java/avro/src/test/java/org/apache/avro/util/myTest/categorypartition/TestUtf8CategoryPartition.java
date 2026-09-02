@@ -16,13 +16,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 /**
- * Test suite basata su Category-Partition Testing per {@link Utf8}. Vedi
- * CategoryPartition_Utf8.md per la documentazione delle categorie/partizioni e
- * la motivazione di ogni caso di test (ID T1..T35).
- *
- * Nota: la struttura e' "piatta" (nessuna classe @Nested) perche' la
- * configurazione Surefire di questo progetto esclude le classi interne (pattern
- * **&#47;*$*), che impedirebbe l'esecuzione dei test annidati.
+ * Test suite basata su Category-Partition Testing per Utf8 Nota: la struttura
+ * e' "piatta" (nessuna classe @Nested) perche' la configurazione Surefire di
+ * questo progetto esclude le classi interne (pattern **&#47;*$*), che
+ * impedirebbe l'esecuzione dei test annidati.
  */
 class TestUtf8CategoryPartition {
 

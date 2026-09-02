@@ -128,6 +128,32 @@
             <include>**/RandoopUtf8Test.java</include>
             <include>**/Resolver_ESTest.java</include>
             <include>**/Utf8_ESTest.java</include>
+            <include>**/ResolverC1ZeroShotTest.java</include>
+            <include>**/ResolverC1TotTest.java</include>
+            <include>**/ResolverC2ZeroShotTest.java</include>
+            <include>**/ResolverC2TotTest.java</include>
+            <include>**/ResolverC3ZeroShotTest.java</include>
+            <include>**/ResolverC3TotTest.java</include>
+            <include>**/ResolverC4ZeroShotTest.java</include>
+            <include>**/ResolverC4TotTest.java</include>
+            <include>**/Utf8C1ZeroShotTest.java</include>
+            <include>**/Utf8C1TotTest.java</include>
+            <include>**/Utf8C2ZeroShotTest.java</include>
+            <include>**/Utf8C2TotTest.java</include>
+            <include>**/Utf8C3ZeroShotTest.java</include>
+            <include>**/Utf8C3TotTest.java</include>
+            <include>**/Utf8C4ZeroShotTest.java</include>
+            <include>**/Utf8C4TotTest.java</include>
+            <include>**/RandoopResolverC1Test.java</include>
+            <include>**/RandoopResolverC2Test.java</include>
+            <include>**/RandoopResolverC3Test.java</include>
+            <include>**/RandoopResolverC4Test.java</include>
+            <include>**/RandoopUtf8C1Test.java</include>
+            <include>**/RandoopUtf8C1ErrorTest.java</include>
+            <include>**/RandoopUtf8C2Test.java</include>
+            <include>**/RandoopUtf8C2ErrorTest.java</include>
+            <include>**/RandoopUtf8C3Test.java</include>
+            <include>**/RandoopUtf8C4Test.java</include>
           </includes>
           <excludes combine.self="override">
             <!-- A few inner/@Nested classes are not to be tested directly -->
