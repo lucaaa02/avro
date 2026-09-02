@@ -47,11 +47,11 @@ public class Utf8 implements Comparable<Utf8>, CharSequence, Externalizable {
   }
 
   public Utf8(String string) {
-    byte[] bytes = getBytesFor(string);
-    int length = bytes.length;
-    SystemLimitException.checkMaxStringLength(length);
-    this.bytes = bytes;
-    this.length = length;
+    byte[] localBytes = getBytesFor(string);
+    int localLength = localBytes.length;
+    SystemLimitException.checkMaxStringLength(localLength);
+    this.bytes = localBytes;
+    this.length = localLength;
     this.string = string;
   }
 
@@ -63,10 +63,10 @@ public class Utf8 implements Comparable<Utf8>, CharSequence, Externalizable {
   }
 
   public Utf8(byte[] bytes) {
-    int length = bytes.length;
-    SystemLimitException.checkMaxStringLength(length);
+    int localLength = bytes.length;
+    SystemLimitException.checkMaxStringLength(localLength);
     this.bytes = bytes;
-    this.length = length;
+    this.length = localLength;
   }
 
   Utf8(String string, int length) {
@@ -122,11 +122,11 @@ public class Utf8 implements Comparable<Utf8>, CharSequence, Externalizable {
 
   /** Set to the contents of a String. */
   public Utf8 set(String string) {
-    byte[] bytes = getBytesFor(string);
-    int length = bytes.length;
-    SystemLimitException.checkMaxStringLength(length);
-    this.bytes = bytes;
-    this.length = length;
+    byte[] localBytes = getBytesFor(string);
+    int localLength = localBytes.length;
+    SystemLimitException.checkMaxStringLength(localLength);
+    this.bytes = localBytes;
+    this.length = localLength;
     this.string = string;
     this.hash = 0;
     return this;
@@ -137,7 +137,7 @@ public class Utf8 implements Comparable<Utf8>, CharSequence, Externalizable {
       this.bytes = new byte[other.length];
     }
     this.length = other.length;
-    System.arraycopy(other.bytes, 0, bytes, 0, length);
+    System.arraycopy(other.bytes, 0, this.bytes, 0, this.length);
     this.string = other.string;
     this.hash = other.hash;
     return this;
@@ -160,7 +160,7 @@ public class Utf8 implements Comparable<Utf8>, CharSequence, Externalizable {
     if (!(o instanceof Utf8))
       return false;
     Utf8 that = (Utf8) o;
-    if (!(this.length == that.length))
+    if (this.length != that.length)
       return false;
     // For longer strings, leverage vectorization (JDK 9+) to determine equality
     // For shorter strings, the overhead of this method defeats the value
@@ -177,16 +177,16 @@ public class Utf8 implements Comparable<Utf8>, CharSequence, Externalizable {
   public int hashCode() {
     int h = hash;
     if (h == 0) {
-      byte[] bytes = this.bytes;
-      int length = this.length;
+      byte[] localBytes = this.bytes;
+      int localLength = this.length;
       // If the array is filled, use the underlying JDK hash functionality.
       // Starting with JDK 21, the underlying implementation is vectorized.
-      if (length > 7 && bytes.length == length) {
-        h = Arrays.hashCode(bytes);
+      if (localLength > 7 && localBytes.length == localLength) {
+        h = Arrays.hashCode(localBytes);
       } else {
         h = 1;
-        for (int i = 0; i < length; i++) {
-          h = h * 31 + bytes[i];
+        for (int i = 0; i < localLength; i++) {
+          h = h * 31 + localBytes[i];
         }
       }
       this.hash = h;

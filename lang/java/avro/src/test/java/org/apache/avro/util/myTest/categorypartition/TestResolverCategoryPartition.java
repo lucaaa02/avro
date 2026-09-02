@@ -29,25 +29,7 @@ import static org.junit.Assert.*;
 /**
  * Test manuali basati su Category-Partition per org.apache.avro.Resolver.
  *
- * Il metodo sotto test e' Resolver.resolve(Schema writer, Schema reader), che
- * restituisce un albero di Resolver.Action a seconda della combinazione (tipo
- * del writer, tipo del reader). Le categorie individuate:
- *
- * 1. Tipi primitivi uguali -> DoNothing 2. Promozioni numeriche valide ->
- * Promote 3. Combinazioni incompatibili -> ErrorAction 4. FIXED (nome/size
- * uguali o no) -> DoNothing / ErrorAction 5. ARRAY / MAP -> Container
- * (ricorsivo) 6. ENUM (simboli uguali/nome diverso) -> EnumAdjust / ErrorAction
- * 7. RECORD (campi uguali/aggiunti/rimossi) -> RecordAdjust (+ Skip) /
- * ErrorAction 8. UNION solo lato reader o solo lato writer -> ReaderUnion /
- * WriterUnion
- *
- * NOTA IMPORTANTE: i nomi dei campi pubblici usati sono stati verificati contro
- * Resolver.java: elementAction, fieldActions sono corretti, ma il campo che
- * espone l'ErrorType dentro Resolver.ErrorAction si chiama "error" (non
- * "errorType" come suggerisce la documentazione ufficiale). Se un test fallisce
- * per un assert sbagliato (non per errore di compilazione), NON cambiare il
- * comportamento della classe: e' il test a doversi adattare al comportamento
- * vero, documentando la scoperta.
+
  */
 public class TestResolverCategoryPartition {
 
