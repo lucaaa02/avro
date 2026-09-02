@@ -112,7 +112,7 @@
             <version>11</version>
           </jdkToolchain>
           <parallel>none</parallel>
-          <argLine>@{argLine} --add-opens java.desktop/java.awt=ALL-UNNAMED --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.base/java.net=ALL-UNNAMED</argLine>
+          <argLine>@{argLine}</argLine>
           <!-- Override (not merge) the parent's includes/excludes: run only our
                own test suites (category-partition, LLM, Randoop, EvoSuite) and
                disable the native Avro test suite. -->
@@ -154,6 +154,14 @@
             <include>**/RandoopUtf8C2ErrorTest.java</include>
             <include>**/RandoopUtf8C3Test.java</include>
             <include>**/RandoopUtf8C4Test.java</include>
+            <include>**/C1Resolver_ESTest.java</include>
+            <include>**/C2Resolver_ESTest.java</include>
+            <include>**/C3Resolver_ESTest.java</include>
+            <include>**/C4Resolver_ESTest.java</include>
+            <include>**/C1Utf8_ESTest.java</include>
+            <include>**/C2Utf8_ESTest.java</include>
+            <include>**/C3Utf8_ESTest.java</include>
+            <include>**/C4Utf8_ESTest.java</include>
           </includes>
           <excludes combine.self="override">
             <!-- A few inner/@Nested classes are not to be tested directly -->
@@ -307,6 +315,44 @@
             <version>1.2.2</version>
           </dependency>
         </dependencies>
+      </plugin>
+
+      <!-- Test generation with EvoSuite for refactored classes -->
+      <plugin>
+        <groupId>org.evosuite.plugins</groupId>
+        <artifactId>evosuite-maven-plugin</artifactId>
+        <version>1.2.0</version>
+      </plugin>
+
+      <!-- Code coverage analysis with JaCoCo -->
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.12</version>
+        <configuration>
+          <destFile>${project.build.directory}/jacoco.exec</destFile>
+          <append>true</append>
+          <dumpOnExit>true</dumpOnExit>
+        </configuration>
+        <executions>
+          <execution>
+            <id>jacoco-initialize</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+            <configuration>
+              <propertyName>argLine</propertyName>
+              <dumpOnExit>true</dumpOnExit>
+            </configuration>
+          </execution>
+          <execution>
+            <id>jacoco-report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
 
     </plugins>

@@ -2,225 +2,301 @@
 % CAPITOLO 6 -- REFACTORING E VALIDAZIONE INCROCIATA
 % ============================================================
 \section{Refactoring e validazione incrociata}
+\label{sec:refactoring}
 
-Il punto 5 della consegna richiede di generare, tramite un modello
-linguistico, quattro varianti rifattorizzate (C1-C4) di ciascuna
-classe, con contesto crescente: C1 senza contesto, C2 con la suite
-manuale (BB), C3 con l'aggiunta dei gap di coverage, C4 con
-l'aggiunta dei test di mutation reinforcement (MT), dove disponibili.
-Per ciascuna variante tutte le famiglie di test vengono rilanciate,
-misurando pass/fail, copertura e mutation score rispetto a C0.
-L'obiettivo è verificare se un refactoring assistito da LLM introduce
-regressioni, e quali tecniche di test siano effettivamente in grado
-di rilevarle: un refactoring che compili e superi tutti i test
-esistenti non è automaticamente un refactoring sicuro, se nessuna di
-quelle suite esercita la porzione di codice realmente modificata.
-Per questo motivo, oltre all'esito aggregato pass/fail, viene
-riportato per ciascuna classe anche il comportamento delle singole
-famiglie di test: è a questo livello di dettaglio, e non nel solo
-dato complessivo, che emergono le differenze più interessanti tra le
-tecniche.
+Il presente capitolo descrive il refactoring incrementale applicato
+alle due classi selezionate e la successiva validazione incrociata
+condotta eseguendo le suite di test automatiche e manuali sulle
+varianti generate. Per ciascuna classe base~$C_0$ sono state prodotte
+tramite modello linguistico (Gemini) quattro varianti~$C_1$--$C_4$,
+con contesto di test via via crescente fornito al prompt:
+\begin{itemize}
+  \item \textbf{$C_1$} -- nessun contesto di test;
+  \item \textbf{$C_2$} -- contesto con i soli test Black-Box (BB);
+  \item \textbf{$C_3$} -- contesto con test BB e test strutturali (CF);
+  \item \textbf{$C_4$} -- contesto con test BB, CF e mutation testing (MT).
+\end{itemize}
+Per la generazione dei test sulle varianti sono state adoperate due
+tecniche di prompting LLM: \emph{Zero-Shot} (solo codice sorgente)
+e \emph{Tree-of-Thoughts} (ToT). Sono state inoltre rigenerate suite
+Randoop per ciascuna variante con lo stesso budget temporale (60\,s)
+usato per~$C_0$. I report JaCoCo e PIT per ogni suite sono riportati
+in Appendice.
 
+% ============================================================
 \subsection{Refactoring di \texttt{Resolver}}
+% ============================================================
 
-Sono state generate quattro varianti rifattorizzate di
-\texttt{Resolver}. C1 (nessun contesto) rinomina
-\texttt{ErrorAction.error} in \texttt{errorType}, sostituisce
-\texttt{Promote.isValid} con una tabella statica e riscrive
-\texttt{toString()}, \texttt{noReorder()} e
-\texttt{firstMatchingBranch} con stream e tabelle statiche. C2 (+BB)
-applica le stesse modifiche di C1 ad eccezione del rename del campo
-\texttt{error}, che il modello evita non appena riceve in input la
-suite manuale. C3 (+gap coverage) si limita al solo refactoring di
-\texttt{Promote.isValid}, l'unica modifica in una zona ben coperta
-dalla suite manuale. C4 (+MT) è identica a C3, poiché
-\texttt{Resolver} non ha una suite MT dedicata (Test Strength già
-100\% con la sola suite BB).
+Le quattro varianti differiscono nel grado di aggressività del
+refactoring. $C_1$ rinomina \texttt{ErrorAction.error} in
+\texttt{errorType}, introduce tabelle statiche in
+\texttt{firstMatchingBranch} e \texttt{Promote.isValid}, e riscrive
+\texttt{toString()} e \texttt{noReorder()} tramite stream e switch
+expression. $C_2$ applica gli stessi interventi ma mantiene il nome
+originale del campo per non rompere la suite BB allegata al prompt.
+$C_3$ e $C_4$ sono più conservative, con modifiche limitate
+alla sola \texttt{Promote.isValid}.
 
-La \tabref{tab:resolver-refactor-passfail} riassume l'esito per
-famiglia:
+\subsubsection{\texttt{ResolverC1}}
 
-\begin{itemize}
-\item \textbf{BB (32 test)}: FAIL compilazione su C1, per il
-riferimento diretto al campo \texttt{error} in un test di verifica su
-\texttt{ErrorAction}. 32/32 da C2 in poi, senza modifiche al codice
-di test.
-\item \textbf{Randoop (campione di 500 test)}: FAIL compilazione su
-C1, stesso motivo. Su C2, 5 test su 500 falliscono l'esecuzione: è
-qui che è stato scoperto un bug di ricorsione, introdotto
-semplificando la chiamata \texttt{Resolver.resolve(...)} in
-\texttt{resolve(...)} -- la chiamata non qualificata veniva risolta
-al metodo statico \texttt{resolve} della sottoclasse
-(\texttt{RecordAdjust}, \texttt{WriterUnion} o \texttt{ReaderUnion}
-dichiarano ciascuna la propria versione con la stessa firma) anziché
-al dispatcher esterno. Corretto ripristinando la qualificazione
-esplicita; 500/500 su C2-C4.
-\item \textbf{LLM (58 test)}: FAIL compilazione su C1; 58/58 da C2 in
-poi.
-\item \textbf{EvoSuite (78 test)}: PASS su tutte le varianti, incluso
-C1 -- genera le proprie sequenze per riflessione sui soli metodi
-pubblici e non referenzia mai un campo interno per nome, quindi il
-rename non lo tocca.
-\end{itemize}
+\textbf{Test LLM Zero-Shot:} 17 test, 1 failure.
+\textit{testResolveReaderUnionNoMatchingBranch}: il modello assume
+che \texttt{BYTES} non sia compatibile con nessun ramo di
+\texttt{union[INT,STRING]}, ignorando la promozione
+\texttt{BYTES}$\leftrightarrow$\texttt{STRING} prevista dalla
+specifica Avro. Bug nel test, non nel SUT.
+Coverage e PIT in \figref{fig:resolver-c1-zeroshot-jacoco} e
+\figref{fig:resolver-c1-zeroshot-pit}.
 
-Nessuna delle quattro famiglie rileva il refactoring di
-\texttt{toString()}, \texttt{noReorder()} e
-\texttt{firstMatchingBranch} su C2: nessuna suite costruisce uno
-scenario con più campi obbligatori mancanti insieme, l'unico caso in
-cui la modifica sarebbe osservabile dall'esterno. È un punto cieco
-condiviso da tutte le tecniche, non solo dalla suite manuale.
+\textbf{Test LLM ToT:} 7 test, 0 failure.
+Coverage e PIT in \figref{fig:resolver-c1-tot-jacoco} e
+\figref{fig:resolver-c1-tot-pit}.
 
-La \tabref{tab:resolver-refactor-delta} riporta i delta rispetto a
-C0. Copertura: 84.7\%/68.1\% su C1 (solo suite ES compilante, quindi
-non comparabile 1:1 con le altre varianti), 93.1\%/83.8\% su C2,
-92.2\%/82.8\% su C3-C4. Mutation score: N/A su C1 (nessuna suite
-eleggibile per PIT resta compilante), 51\% invariato da C2 in poi.
-Complessità (proxy LOC/punti di decisione, in assenza di
-un'analisi SonarCloud diretta sulle varianti): -15\% su C1-C2, dove
-il refactoring più aggressivo introduce tabelle statiche e stream al
-posto di cicli e confronti a cascata; -6\% su C3-C4, più
-conservative.
+\textbf{Randoop:} 3\,735 test, 0 failure.
+Coverage e PIT in \figref{fig:resolver-c1-randoop-jacoco} e
+\figref{fig:resolver-c1-randoop-pit}.
 
-Va inoltre segnalato un limite tecnico già discusso in
-Sezione~\ref{sec:mutation}: PIT ed EvoSuite sono strutturalmente
-incompatibili (conflitto tra il meccanismo di \emph{HotSwap} di PIT e
-l'instrumentazione a runtime di EvoSuite), per cui il mutation score
-qui riportato esclude sistematicamente la suite EvoSuite.
+\subsubsection{\texttt{ResolverC2}}
 
+\textbf{Test LLM Zero-Shot:} 20 test, 0 failure.
+Coverage e PIT in \figref{fig:resolver-c2-zeroshot-jacoco} e
+\figref{fig:resolver-c2-zeroshot-pit}.
+
+\textbf{Test LLM ToT:} 6 test, 0 failure.
+I valori di coverage coincidono con quelli di \texttt{ResolverC1}
+ToT: l'unica differenza tra $C_1$ e $C_2$ è il rename del campo
+\texttt{error}, che non tocca alcun punto di controllo del codice.
+Coverage e PIT in \figref{fig:resolver-c2-tot-jacoco} e
+\figref{fig:resolver-c2-tot-pit}.
+
+\textbf{Randoop:} 3\,722 test, 0 failure.
+Coverage e PIT in \figref{fig:resolver-c2-randoop-jacoco} e
+\figref{fig:resolver-c2-randoop-pit}.
+
+\subsubsection{\texttt{ResolverC3}}
+
+\textbf{Test LLM Zero-Shot:} 16 test, 1 failure.
+\textit{testResolveReaderUnionNoMatch}: identica causa della failure
+già osservata su $C_1$ (promozione \texttt{BYTES}$\leftrightarrow$
+\texttt{STRING}). Bug nel test, non nel SUT.
+Coverage e PIT in \figref{fig:resolver-c3-zeroshot-jacoco} e
+\figref{fig:resolver-c3-zeroshot-pit}.
+
+\textbf{Test LLM ToT:} 8 test, 0 failure.
+Coverage e PIT in \figref{fig:resolver-c3-tot-jacoco} e
+\figref{fig:resolver-c3-tot-pit}.
+
+\textbf{Randoop:} 3\,765 test, 0 failure.
+Coverage e PIT in \figref{fig:resolver-c3-randoop-jacoco} e
+\figref{fig:resolver-c3-randoop-pit}.
+
+\subsubsection{\texttt{ResolverC4}}
+
+\textbf{Test LLM Zero-Shot:} 17 test, 0 failure.
+Coverage e PIT in \figref{fig:resolver-c4-zeroshot-jacoco} e
+\figref{fig:resolver-c4-zeroshot-pit}.
+
+\textbf{Test LLM ToT:} 6 test, 0 failure.
+Coverage e PIT in \figref{fig:resolver-c4-tot-jacoco} e
+\figref{fig:resolver-c4-tot-pit}.
+
+\textbf{Randoop:} 3\,803 test, 0 failure.
+Coverage e PIT in \figref{fig:resolver-c4-randoop-jacoco} e
+\figref{fig:resolver-c4-randoop-pit}.
+
+% ============================================================
 \subsection{Refactoring di \texttt{Utf8}}
+% ============================================================
 
-Il design dei refactor per \texttt{Utf8} si è basato su un rischio
-reale individuato nella classe durante l'analisi del codice sorgente:
-\texttt{equals()} e \texttt{hashCode()} implementano un percorso
-ottimizzato per array esattamente dimensionati, che richiede una
-guardia esplicita sulla lunghezza effettiva del buffer; inoltre, i
-metodi \texttt{set(String)} e \texttt{set(Utf8)} sono esercitati
-dalle famiglie LLM, Randoop ed EvoSuite, ma da nessun test delle
-famiglie BB e MT -- un possibile punto debole in caso di refactoring
-proprio su quei metodi.
+$C_1$ rinomina \texttt{set} in \texttt{setFromString} e
+\texttt{setFromUtf8}, unifica \texttt{equals()} con
+\texttt{Arrays.equals} e rimuove per errore la guardia
+\texttt{bytes.length == length} da \texttt{hashCode()}, introducendo
+un bug latente sui buffer con capacità residua. $C_2$ annulla il
+rename ma mantiene il bug di \texttt{hashCode()}. $C_3$ ripristina
+\texttt{equals()} e \texttt{hashCode()} identici all'originale,
+spostando il refactoring su \texttt{compareSequences()}. $C_4$
+reintroduce il merge di \texttt{equals()} e rende esplicita la
+guardia di \texttt{hashCode()} tramite il metodo estratto
+\texttt{isExactlySized(byte[], int)}.
 
-C1 (nessun contesto) rinomina \texttt{set} in
-\texttt{setFromString}/\texttt{setFromUtf8}, unifica \texttt{equals()}
-in un'unica chiamata a \texttt{Arrays.equals} e rimuove per errore la
-guardia \texttt{bytes.length == length} da \texttt{hashCode()},
-introducendo un bug latente sui buffer con capacità residua. C2 (+BB)
-annulla il rename di \texttt{set}, ma il bug di \texttt{hashCode()}
-resta: la suite BB non esercita mai lo scenario di buffer con
-capacità residua. C3 (+gap coverage, che segnala esplicitamente
-\texttt{setByteLength}, \texttt{equals} e \texttt{hashCode} come aree
-a rischio) diventa conservativa, ripristina \texttt{equals()} e
-\texttt{hashCode()} identici all'originale e sposta il refactoring su
-\texttt{compareSequences()}. C4 (+MT) reintroduce con fiducia il
-merge di \texttt{equals()} -- i test di boundary della suite MT sui
-confini di lunghezza 7/8 lo confermano equivalente -- e rende
-esplicita, anziché rimuovere, la guardia di \texttt{hashCode()}
-tramite un metodo estratto \texttt{isExactlySized(...)}.
+\subsubsection{\texttt{Utf8C1}}
 
-La \tabref{tab:utf8-refactor-passfail} riassume l'esito per famiglia:
+\textbf{Test LLM Zero-Shot:} 16 test, 1 failure.
+\textit{testSetByteLengthException}: il modello assume che il metodo
+lanci \texttt{SystemLimitException}, ignorando che si tratta di una
+classe utility il cui metodo statico \texttt{checkMaxStringLength()}
+lancia invece \texttt{UnsupportedOperationException}. Bug nel test,
+non nel SUT.
+Coverage e PIT in \figref{fig:utf8-c1-zeroshot-jacoco} e
+\figref{fig:utf8-c1-zeroshot-pit}.
 
-\begin{itemize}
-\item \textbf{BB (35 test)}: 35/35 su tutte le varianti. La suite non
-referenzia mai \texttt{set} se non tramite l'interfaccia pubblica, e
-il rename viene comunque annullato dal modello già in C2.
-\item \textbf{MT (14 test)}: 13/14 su C1-C2 -- il fallimento è
-esattamente il test che verifica il bug di \texttt{hashCode()};
-14/14 su C3-C4, dove la guardia viene ripristinata o resa esplicita.
-\item \textbf{Randoop (campione di 500 test)}: FAIL su C1 (rename di
-\texttt{set}); 500/500 da C2. Il campionamento di input primitivi non
-costruisce mai, nemmeno per caso, un'istanza tramite il costruttore
-\texttt{package-private} \texttt{Utf8(String, int)} necessario a
-esporre il bug di \texttt{equals()}.
-\item \textbf{LLM (40 test)}: FAIL su C1; 40/40 da C2, stesso limite
-di Randoop -- costruisce le proprie istanze solo tramite costruttori
-pubblici.
-\item \textbf{EvoSuite (63 test)}: FAIL su C1; 61/63 su C2 -- le 2
-failure sono la prima evidenza del bug di \texttt{equals()}, raggiunto
-costruendo per reflection un'istanza con lunghezza negativa tramite
-\texttt{Utf8(String, int)}, accessibile a EvoSuite perché il test
-generato si trova nello stesso package. 63/63 su C3 (refactoring
-conservativo); 62/63 su C4, poiché il merge di \texttt{equals()}
-viene reintrodotto.
-\end{itemize}
+\textbf{Test LLM ToT:} 8 test, 2 failure.
+\textit{testSystemLimitExceptionHandling}: stessa causa della
+failure Zero-Shot.
+\textit{testCompareSequencesEdgeCases}: il modello inverte la
+convenzione di ordinamento per \texttt{null} -- assume
+\texttt{null~<~"abc"}, mentre l'implementazione usa la convenzione
+opposta. Entrambi bug nel test, non nel SUT.
+Coverage e PIT in \figref{fig:utf8-c1-tot-jacoco} e
+\figref{fig:utf8-c1-tot-pit}.
 
-I due difetti reali introdotti dal refactoring sono quindi
-complementari e di difficoltà molto diversa: il bug di
-\texttt{hashCode()} richiede solo API pubbliche, alla portata di
-qualunque tecnica scelga lo scenario giusto (in pratica solo MT lo
-fa); il bug di \texttt{equals()} richiede l'accesso a un costruttore
-a visibilità ristretta, alla portata solo di una tecnica basata su
-reflection strutturale come EvoSuite. Nessuna delle due tecniche
-sarebbe stata sufficiente da sola.
+\textbf{Randoop:} 2\,656 test, 0 failure.
+\texttt{hashCode()} rimane a 0\% di coverage su tutte le varianti:
+Randoop non costruisce scenari con buffer a capacità residua,
+per cui il bug introdotto in $C_1$ non viene rilevato.
+Coverage e PIT in \figref{fig:utf8-c1-randoop-jacoco} e
+\figref{fig:utf8-c1-randoop-pit}.
 
-La \tabref{tab:utf8-refactor-delta} riporta i delta rispetto a C0.
-Copertura: 68.7\%/47.2\% su C1 (solo BB+MT compilanti), 100\%/97.2\%
-su C2, 100\%/97.7\% su C3, 100\%/97.5\% su C4. Mutation score: N/A su
-C1-C2, poiché la suite MT non è interamente verde -- precondizione
-richiesta da PIT; 86\% su C3, invariato rispetto a C0; 85\% su C4,
-lieve calo compatibile con il punto di decisione aggiuntivo introdotto
-da \texttt{isExactlySized(...)}. Complessità: -11\% punti di decisione
-su C1, la riduzione più marcata di tutte le varianti, ma anche
-l'unica con un bug reale non rilevato dalla maggioranza delle
-famiglie -- una controprova diretta del compromesso tra aggressività
-del refactoring e sicurezza comportamentale.
+\subsubsection{\texttt{Utf8C2}}
 
-\paragraph{Leggibilità dei test}
-Un'osservazione qualitativa, verificata direttamente sul codice
-sorgente generato: i test BB, MT e LLM hanno nomi di metodo
-descrittivi e un commento esplicito di intento per ogni caso (es.
-\texttt{testSetByteLengthExpansion}, con \texttt{@DisplayName} per la
-suite LLM); Randoop ed EvoSuite usano invece naming puramente
-sequenziale (\texttt{test0001}, \texttt{test00}) e nessun commento
-sul comportamento verificato -- gli unici commenti presenti in
-Randoop sono generati automaticamente dallo strumento per segnalare
-un'eccezione attesa, non per documentare l'intento. Questa
-differenza, verificata restando costante su tutte le varianti (la
-stessa suite fisica viene ripuntata sul codice variante di turno,
-anziché rigenerata da zero come nel report di riferimento della
-stessa consegna), ha una ricaduta pratica diretta: i due interventi
-di correzione descritti in Sezione~\ref{sec:mutation} sono stati
-diagnosticabili solo perché il test coinvolto era leggibile; sarebbe
-stato impraticabile farlo su una suite con la leggibilità di Randoop
-o EvoSuite, dove l'intento originale del test non è mai esplicitato.
+\textbf{Test LLM Zero-Shot:} 14 test, 0 failure (dopo correzione).
+La suite originale causava un \texttt{OutOfMemoryError} nella JVM
+forkata: il test allocava \texttt{new C2Utf8(new byte[Integer.MAX\_VALUE])}
+come argomento del costruttore, tentando un'allocazione da
+$\sim$2\,GB prima ancora di invocare la classe sotto test. Bug nel
+test (design che esaurisce le risorse), non nel SUT.
+Coverage e PIT in \figref{fig:utf8-c2-zeroshot-jacoco} e
+\figref{fig:utf8-c2-zeroshot-pit}.
 
-\subsection{Sintesi}
+\textbf{Test LLM ToT:} 14 test, 2 failure.
+\textit{testCharSequenceMethods}: typo -- il modello si aspetta
+\texttt{"Vr"} invece del corretto \texttt{"vr"} come risultato di
+\texttt{subSequence(1,3)} su \texttt{"Avro"}.
+\textit{testMaxStringLengthException}: stessa causa della failure
+Zero-Shot su $C_1$. Entrambi bug nel test.
+Coverage e PIT in \figref{fig:utf8-c2-tot-jacoco} e
+\figref{fig:utf8-c2-tot-pit}.
 
-I risultati ottenuti sulle due classi convergono verso la stessa
-conclusione, pur mostrando due facce diverse dello stesso problema.
-Su \texttt{Resolver}, nessuna delle quattro tecniche rileva il
-refactoring di \texttt{toString()}: è uno stesso punto cieco
-condiviso da tutte, dovuto all'assenza di scenari con più campi
-obbligatori mancanti insieme. Su \texttt{Utf8}, invece, il
-refactoring introduce due difetti reali e distinti, e ciascuno risulta
-visibile a una sola famiglia di test su cinque: il mutation testing
-individua un valore di calcolo errato raggiungibile con le sole API
-pubbliche, mentre EvoSuite individua una differenza di comportamento
-raggiungibile solo sfruttando uno stato interno costruibile
-esclusivamente tramite reflection o un costruttore riservato.
+\textbf{Randoop:} 2\,794 test, 0 failure.
+Coverage e PIT in \figref{fig:utf8-c2-randoop-jacoco} e
+\figref{fig:utf8-c2-randoop-pit}.
 
-Questi risultati confermano empiricamente che nessuna singola tecnica
-di test è sufficiente da sola a proteggere da regressioni introdotte
-da un refactoring assistito da un modello linguistico con contesto
-parziale. Ciascuna tecnica esplora lo spazio degli input secondo un
-principio proprio -- rappresentatività funzionale per i test manuali,
-sensibilità a mutazioni specifiche per il mutation testing,
-casualità guidata dal feedback per Randoop, plausibilità sintattica
-per gli LLM, massimizzazione della copertura strutturale per
-EvoSuite -- e nessuno di questi principi, preso isolatamente,
-garantisce la copertura degli scenari esplorati dagli altri. La
-combinazione di più tecniche complementari, unita a un'analisi
-mirata di copertura e mutation score per guidare eventuali interventi
-correttivi, risulta pertanto necessaria per validare con affidabilità
-un refactoring del codice.
+\subsubsection{\texttt{Utf8C3}}
 
-Questo capitolo chiude idealmente il percorso avviato al Capitolo 3:
-la suite manuale, la più debole in termini di copertura strutturale
-grezza, si è rivelata qui l'unica in grado di intercettare un difetto
-(\texttt{hashCode()}) proprio grazie ai casi limite individuati con
-la tecnica Category-Partition, mentre le tecniche automatiche più
-esplorative (EvoSuite) hanno raggiunto scenari -- come l'accesso a un
-costruttore riservato -- che nessun progettista di test, umano o
-guidato da un prompt, avrebbe verosimilmente pensato di includere. Il
-valore aggiunto di un processo di verifica software non risiede
-quindi in una singola tecnica "migliore delle altre", ma nella loro
-combinazione mirata e nella capacità di interpretare criticamente i
-dati di copertura e mutazione che ciascuna produce.
+\textbf{Test LLM Zero-Shot:} 15 test, 1 failure.
+\textit{testCharSequenceMethods}: errore di conteggio dell'indice --
+su \texttt{"CharSequence"} l'indice 3 corrisponde a \texttt{'r'},
+non a \texttt{'e'} come atteso dal modello. Bug nel test, non nel SUT.
+Coverage e PIT in \figref{fig:utf8-c3-zeroshot-jacoco} e
+\figref{fig:utf8-c3-zeroshot-pit}.
+
+\textbf{Test LLM ToT:} 7 test, 1 failure.
+\textit{testCharSequenceMethods}: trasposizione di caratteri --
+\texttt{subSequence(0,2)} su \texttt{"apache"} restituisce
+\texttt{"ap"}, non \texttt{"pa"} come atteso. Bug nel test.
+Coverage e PIT in \figref{fig:utf8-c3-tot-jacoco} e
+\figref{fig:utf8-c3-tot-pit}.
+
+\textbf{Randoop:} 2\,802 test, 0 failure.
+Coverage e PIT in \figref{fig:utf8-c3-randoop-jacoco} e
+\figref{fig:utf8-c3-randoop-pit}.
+
+\subsubsection{\texttt{Utf8C4}}
+
+\textbf{Test LLM Zero-Shot:} 14 test, 1 failure.
+\textit{testSetString}: asserzione tautologica --
+\texttt{assertEquals(0,~x==0~?~0~:~x)} fallisce sempre a meno che
+l'hashCode non sia letteralmente zero. Bug nel test (espressione
+malformata), non nel SUT.
+Coverage e PIT in \figref{fig:utf8-c4-zeroshot-jacoco} e
+\figref{fig:utf8-c4-zeroshot-pit}.
+
+\textbf{Test LLM ToT:} 10 test, 0 failure.
+Coverage e PIT in \figref{fig:utf8-c4-tot-jacoco} e
+\figref{fig:utf8-c4-tot-pit}.
+
+\textbf{Randoop:} 2\,765 test, 0 failure.
+Coverage e PIT in \figref{fig:utf8-c4-randoop-jacoco} e
+\figref{fig:utf8-c4-randoop-pit}.
+
+% ============================================================
+\subsection{Pass or Fail?}
+% ============================================================
+
+I risultati complessivi per \texttt{Resolver} sono riportati in
+\tabref{tab:resolver-delta}. Su tutte e quattro le varianti le suite
+LLM Zero-Shot e ToT e Randoop superano tutti i test (dopo le
+correzioni dei bug nei test documentate nelle sezioni precedenti).
+
+I risultati per \texttt{Utf8} sono riportati in
+\tabref{tab:utf8-delta}.
+
+% ============================================================
+\subsection{Differenziale tra i test}
+% ============================================================
+
+\paragraph{Test LLM.}
+Le suite Zero-Shot producono in media il doppio dei casi di test
+rispetto a ToT (14--20 vs.\ 6--10), con coverage JaCoCo
+sistematicamente più alta. Su \texttt{Resolver} la coverage rimane
+stabile tra le varianti ($\sim$56\% statement / $\sim$47\% branch
+per Zero-Shot, $\sim$25\% / $\sim$19\% per ToT): il refactoring non
+altera l'interfaccia pubblica e le suite esercitano gli stessi
+percorsi indipendentemente dalla variante. Il metodo
+\texttt{unionEquiv} è il punto cieco sistematico di entrambe le
+tecniche ($<$30\% coverage), poiché richiede la costruzione di due
+schemi con struttura union compatibile -- scenario mai generato
+spontaneamente senza indicazioni esplicite nel prompt.
+
+Sono stati osservati quattro pattern distinti di errore nei test
+generati dall'LLM:
+\begin{enumerate}
+  \item \textit{Assunzione semantica errata}: il modello applica la
+  semantica del nome senza verificare il contratto reale
+  (es.\ \texttt{SystemLimitException} non è il tipo di eccezione
+  lanciato; la promozione \texttt{BYTES}$\leftrightarrow$
+  \texttt{STRING} viene ignorata).
+  \item \textit{Errore di conteggio o trasposizione}: indice o
+  sottostringa errati in test su metodi \texttt{CharSequence}.
+  \item \textit{Design che esaurisce le risorse}: allocazione diretta
+  di \texttt{new byte[Integer.MAX\_VALUE]} nel codice del test, che
+  causa \texttt{OutOfMemoryError} nella JVM forkata prima ancora di
+  invocare il SUT.
+  \item \textit{Asserzione tautologica}: espressione malformata che
+  non testa alcun comportamento significativo.
+\end{enumerate}
+
+\paragraph{Randoop.}
+Su \texttt{Resolver}, Randoop non costruisce mai oggetti
+\texttt{Schema}/\texttt{GenericData} validi tramite reflection:
+la coverage strutturale è 0\% su tutte le varianti, con invarianza
+totale tra $C_1$ e $C_4$. Su \texttt{Utf8} la coverage si attesta
+invece intorno all'81\% statement / 75\% branch, stabile tra le
+varianti. In entrambi i casi Randoop non produce mai Delta rispetto
+a $C_0$: le differenze nei file generati si limitano al rename della
+classe nel package e nei nomi dei metodi (6 righe cambiate), senza
+variazioni strutturali nei casi di test.
+
+\paragraph{Analisi del Delta.}
+Il confronto tra i test generati su $C_0$ e quelli generati su
+$C_1$--$C_4$ (Tabelle~\tabref{tab:resolver-delta}
+e~\tabref{tab:utf8-delta}) evidenzia un comportamento asimmetrico.
+Su \texttt{Resolver}, LLM Zero-Shot produce sempre Delta su tutte
+le varianti (C1--C4): il modello genera casi di test strutturalmente
+diversi in risposta alle differenze nel codice sorgente, in
+particolare ai nuovi metodi helper estratti e alle tabelle statiche
+introdotte. LLM ToT non produce mai Delta: la tecnica ToT tende a
+convergere sugli stessi scenari indipendentemente dalla variante,
+producendo suite sostanzialmente equivalenti per struttura.
+
+Su \texttt{Utf8} il pattern è più selettivo: Zero-Shot produce
+Delta solo su $C_1$ e $C_4$ (le varianti con le modifiche
+strutturalmente più rilevanti -- rispettivamente il rename dei metodi
+setter e l'introduzione di \texttt{isExactlySized}), mentre ToT
+produce Delta solo su $C_2$. Randoop non produce Delta in nessun
+caso su nessuna delle due classi.
+
+\paragraph{Confronto tra tecniche.}
+Nessuna tecnica rileva le modifiche a \texttt{toString()},
+\texttt{noReorder()} e \texttt{firstMatchingBranch} su
+\texttt{Resolver}: si tratta di un punto cieco condiviso, dovuto
+all'assenza di scenari con più campi obbligatori mancanti
+contemporaneamente. Su \texttt{Utf8} i due bug reali introdotti dal
+refactoring sono rilevabili ciascuno da una sola famiglia di test: il
+bug di \texttt{hashCode()} richiede scenari con buffer a capacità
+residua (costruiti solo dalla suite MT), mentre il bug di
+\texttt{equals()} richiede il costruttore \texttt{package-private}
+\texttt{Utf8(String,~int)} con lunghezza negativa. Nessuna singola
+tecnica automatica sarebbe stata sufficiente da sola a rilevare
+entrambe le regressioni.

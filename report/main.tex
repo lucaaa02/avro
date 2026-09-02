@@ -1,11 +1,9 @@
 \documentclass[10pt,a4paper]{article}
 
-% ============================================================
-% FORMATTAZIONE RICHIESTA DALLA CONSEGNA: Arial 10pt, interlinea singola
-% ============================================================
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{helvet}                  % Helvetica: sostituto metricamente equivalente ad Arial
+\usepackage{helvet} 
+\usepackage{float}                 % Helvetica: sostituto metricamente equivalente ad Arial
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{geometry}
 \geometry{a4paper, margin=2.2cm}
@@ -28,6 +26,7 @@
 % un \textcolor esterno verrebbe sovrascritto. Si ridefinisce linkcolor localmente
 % (in un gruppo) solo per la durata del riferimento.
 \newcommand{\tabref}[1]{\textbf{\begingroup\hypersetup{linkcolor=red!70!black}\cref{#1}\endgroup}}
+\newcommand{\figref}[1]{\textbf{\begingroup\hypersetup{linkcolor=blue!70!black}\cref{#1}\endgroup}}
 \usepackage{enumitem}
 \setlist{nosep, itemsep=1pt}         
 % Riduce lo spazio verticale attorno ai titoli di sezione (documento denso)
@@ -36,8 +35,8 @@
 \titlespacing*{\subsection}{0pt}{6pt}{3pt}
 
 \title{\vspace{-1.5cm}Report di Progetto -- ISW2 Modulo 2\\[2pt]\large Software Testing su Apache Avro (fork \texttt{lucaaa02})}
-\author{[Nome Cognome] -- [Matricola]}
-\date{[Data]}
+\author{[Luca Lo Mastro] -- [Matricola]}
+\date{[03/09/2026]}
 
 \begin{document}
 \maketitle

@@ -68,8 +68,7 @@ precedenza, questa tecnica misura non solo quanto codice viene
 eseguito dai test, ma quanto efficacemente le loro asserzioni sono in
 grado di distinguere un comportamento corretto da uno alterato.
 L'analisi è stata condotta con PIT sulla sola suite di test manuali
-(BB), come richiesto dal punto 4b della consegna.
-
+(BB).
 \paragraph{Problemi di integrazione risolti} Sono emersi due problemi
 tecnici nell'integrazione di PIT nel progetto. Il primo (errore
 \texttt{MINION\_DIED}) era dovuto al placeholder \texttt{\$\{argLine\}}
@@ -91,30 +90,34 @@ non ha rilevato alcun mutante sopravvissuto tra quelli coperti
 sopravvissuti, concentrati sui metodi \texttt{equals()},
 \texttt{hashCode()}, \texttt{toString()} e \texttt{setByteLength()}.
 
-\paragraph{Test di rinforzo (MT)} Sono stati scritti 14 nuovi test
-manuali mirati a uccidere i 12 mutanti sopravvissuti su \texttt{Utf8}.
-Durante la loro progettazione sono emerse due scoperte metodologiche:
-un primo tentativo di verifica tramite confronto per identità di
-riferimento (\texttt{assertSame}) su una stringa vuota non uccideva il
-mutante corrispondente, poiché la JDK ottimizza tale caso restituendo
-comunque il letterale internato indipendentemente dal ramo di codice
-eseguito -- risolto verificando lo stato interno tramite reflection;
-inoltre, un test già presente nella suite BB non esercitava
-effettivamente il metodo \texttt{equals()} di \texttt{Utf8}, poiché
-il contratto di JUnit 5 poteva invocare \texttt{String.equals()}
-anziché \texttt{Utf8.equals()} per l'argomento fornito.
+\paragraph{Test di rinforzo (MT)} 
+Sono stati scritti 14 nuovi test scritti a mano con l'obiettivo specifico 
+di eliminare (uccidere) i 12 mutanti che erano sopravvissuti 
+sulla classe \texttt{Utf8}. 
+Durante lo sviluppo di questi test sono venute alla luce due importanti osservazioni metodologiche: 
+un primo tentativo di controllo basato sul confronto dell'identità dei riferimenti 
+(\texttt{assertSame}) applicato a una stringa vuota non riusciva a eliminare il mutante corrispondente, 
+poiché la macchina virtuale Java ottimizza questa situazione restituendo sempre 
+lo stesso letterale memorizzato in memoria (internato), a prescindere dal ramo di codice realmente eseguito 
+--- problema che è stato brillantemente risolto controllando lo stato interno attraverso la reflection; 
+inoltre, ci si è resi conto che un test già esistente nella suite a scatola nera (BB) 
+non testava affatto il metodo \texttt{equals()} della classe \texttt{Utf8}, 
+dal momento che le regole interne di JUnit 5 finivano per chiamare direttamente \texttt{String.equals()} 
+anziché il metodo personalizzato \texttt{Utf8.equals()} per l'oggetto passato come parametro.
 
-Dei 12 mutanti target, 7 sono stati uccisi dai nuovi test. I restanti
-5 sono stati argomentati come mutanti \emph{equivalenti}: i due
-percorsi di calcolo di \texttt{equals()} e \texttt{hashCode()} (un
-ramo ottimizzato tramite \texttt{Arrays.equals}/\texttt{Arrays.hashCode}
-per array esattamente dimensionati, e un loop manuale byte-per-byte
-per gli altri casi) calcolano matematicamente lo stesso risultato per
-qualunque input valido, verificato empiricamente con test mirati
-proprio al confine tra i due rami. Dopo l'integrazione dei test MT, la
-mutation coverage di \texttt{Utf8} è salita al 56\% (33/59), con Test
-Strength dell'87\% (33/38).
-
+Dei 12 mutanti iniziali che rappresentavano il nostro obiettivo, 
+7 sono stati definitivamente uccisi grazie all'introduzione dei nuovi test. 
+I rimanenti 5 sono stati invece giustificati e classificati come mutanti \emph{equivalenti}: 
+questo perché le due strade alternative che calcolano \texttt{equals()} e \texttt{hashCode()} 
+(una prima strada ottimizzata che sfrutta \texttt{Arrays.equals} e \texttt{Arrays.hashCode} 
+quando gli array hanno dimensioni precise, e una seconda strada basata su un ciclo manuale byte per byte 
+per tutte le altre situazioni) producono logicamente e matematicamente lo stesso identico risultato 
+per qualsiasi input corretto, un comportamento che è stato dimostrato empiricamente 
+tramite test mirati costruiti appositamente al confine esatto tra i due percorsi. 
+Al termine dell'integrazione di questi test di rinforzo (MT), 
+la percentuale di copertura dei mutanti (\emph{mutation coverage}) della classe \texttt{Utf8} 
+è cresciuta fino a raggiungere il 56\% (33 mutanti uccisi su un totale di 59), 
+mentre la forza dei test (\emph{Test Strength}) si è attestata all'87\% (33 su 38).
 \subsection{Stima della reliability}
 
 La reliability di un sistema può essere stimata come

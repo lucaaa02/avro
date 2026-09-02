@@ -164,60 +164,71 @@ altre tecniche automatiche: \texttt{Utf8}, essendo una classe più
 piccola e con una logica meno ramificata rispetto a \texttt{Resolver},
 risulta più facilmente esplorabile a parità di tempo di generazione.
 
+
 \subsection{Integrazione tecnica di EvoSuite}
+Integrare EvoSuite nel sistema di compilazione del progetto ha richiesto 
+di superare diverse difficoltà tecniche. Di seguito descrivo in 
+dettaglio ciascun problema incontrato e il metodo adottato per risolverlo.
 
-L'integrazione di EvoSuite nel ciclo di build ha richiesto la
-risoluzione di diversi problemi tecnici, documentati di seguito per
-completezza metodologica.
+\subsubsection{Compatibilità del bytecode nella fase di generazione}
+La libreria interna a EvoSuite 1.2.0 che analizza il bytecode (chiamata ASM) 
+non riesce a leggere correttamente le classi compilate con Java 21, 
+che è il Java predefinito nel nostro ambiente di sviluppo. Inoltre, 
+la libreria mostrava problemi con alcune dipendenze del progetto 
+fornite come ``multi-release JAR'', ovvero archivi che contengono 
+versioni differenti del codice per diverse edizioni di Java. 
+Per ovviare a questo ostacolo, la fase di generazione dei test è stata modificata: 
+il progetto viene compilato usando l'opzione di compatibilità per Java 11 
+e per lanciare EvoSuite si adopera direttamente il programma binario di Java 11. 
+Prima di procedere, inoltre, vengono eliminate dal percorso di ricerca 
+delle classi (classpath) tutte le cartelle e i file denominati 
+\texttt{META-INF/versions/*} presenti nei JAR multi-release che creavano conflitto.
 
-\paragraph{Compatibilità del bytecode in fase di generazione} La
-libreria di analisi bytecode inclusa in EvoSuite 1.2.0 (ASM) non è in
-grado di interpretare correttamente classi compilate per Java 21 (il
-JDK di default dell'ambiente di sviluppo), né alcune dipendenze del
-progetto distribuite come \emph{multi-release JAR} (contenenti più
-versioni di bytecode nello stesso archivio). La generazione è stata
-quindi eseguita compilando il progetto con \texttt{--release 11} e
-utilizzando esplicitamente il binario Java 11 per lanciare EvoSuite,
-dopo aver rimosso dal classpath le voci \texttt{META-INF/versions/*}
-dei JAR multi-release interessati.
+\subsubsection{Gestione della dipendenza di esecuzione non disponibile}
+Mentre per generare i test basta EvoSuite, per poterli effettivamente eseguire 
+è indispensabile disporre della libreria \texttt{evosuite-standalone-runtime}. 
+Purtroppo, la versione esatta di cui c'era bisogno non si trovava 
+pubblicata sul repository centrale di Maven (Maven Central). 
+Per risolvere questo problema senza compromettere il funzionamento automatico, 
+è stato necessario inserire un passaggio specifico all'interno della pipeline di integrazione continua (CI). 
+Questo comando scarica automaticamente il file JAR ufficiale direttamente 
+dalla pagina delle versioni sul sito GitHub di EvoSuite e lo installa manualmente 
+nel repository Maven locale della macchina di compilazione (\texttt{mvn install:install-file}) 
+prima di iniziare la compilazione vera e propria. In questo modo, la build 
+rimane perfettamente riproducibile anche partendo da un computer completamente pulito o da zero.
 
-\paragraph{Dipendenza runtime non disponibile} L'esecuzione (non la
-sola generazione) dei test prodotti da EvoSuite richiede la libreria
-\texttt{evosuite-standalone-runtime}, non pubblicata su Maven Central
-nella versione necessaria. È stato aggiunto uno step dedicato nella
-pipeline di CI che scarica il JAR dalla release ufficiale su GitHub e
-lo installa nel repository Maven locale della macchina di build
-(\texttt{mvn install:install-file}) prima della compilazione,
-garantendo la riproducibilità della build anche in un ambiente pulito.
+\subsubsection{Superamento delle restrizioni di sicurezza della macchina virtuale Java}
+A partire dalla versione 18 di Java, l'utilizzo del comando interno 
+\texttt{System.setSecurityManager(...)} — che il sistema di isolamento (sandbox) 
+di EvoSuite sfrutta per funzionare in sicurezza — è stato bloccato per impostazione 
+predefinita e richiede un permesso esplicito. 
+Per aggirare questo blocco, si è reso necessario inserire l'apposito parametro 
+di configurazione \texttt{-Djava.security.manager=allow} all'interno della riga di comando 
+dei parametri (\texttt{argLine}) del plugin Surefire di Maven, che si occupa di eseguire i test. 
+Visto che in Maven le configurazioni a valore singolo definite nel file \texttt{pom.xml} principale 
+non si sommano ma vengono semplicemente sovrascritte da quelle del modulo figlio, 
+questo flag di sicurezza è stato dichiarato direttamente ed esplicitamente 
+nel file \texttt{pom.xml} del singolo modulo in cui i test vengono eseguiti.
 
-\paragraph{Restrizioni di sicurezza della JVM} A partire da Java 18, la
-chiamata a \texttt{System.setSecurityManager(...)} -- utilizzata dal
-meccanismo di sandboxing di EvoSuite -- è vietata senza un'esplicita
-autorizzazione. È stato necessario aggiungere il flag
-\texttt{-Djava.security.manager=allow} all'\texttt{argLine} di
-Surefire; poiché tale configurazione non viene ereditata tra il
-\texttt{pom.xml} padre e quello del modulo (gli elementi di
-configurazione a valore singolo si sovrascrivono, non si concatenano),
-il flag deve essere dichiarato nel \texttt{pom.xml} del modulo
-effettivamente eseguito.
+\subsubsection{Verifica del bytecode durante l'esecuzione}
+Quando i test generati da EvoSuite venivano eseguiti su Java 21, la macchina virtuale 
+generava un errore specifico di controllo del codice noto come \texttt{VerifyError}, 
+un problema che invece non compariva per niente se si utilizzava Java 11. 
+Questo accade perché il codice modificato (chiamato \textit{instrumentato}) da EvoSuite 
+non rispetta le regole di controllo e verifica molto più rigide introdotte nelle versioni di Java successive alla undicesima. 
+La soluzione adottata è consistita nel configurare un elemento specifico chiamato \texttt{jdkToolchain} 
+all'interno del plugin Surefire, imponendo al sistema di eseguire i test di EvoSuite 
+sfruttando sempre e comunque Java 11, indipendentemente dalla versione di Java 
+utilizzata per compilare il resto del software.
 
-\paragraph{Verifica del bytecode a runtime} L'esecuzione dei test
-EvoSuite su JDK 21 produceva un errore di verifica del bytecode
-(\texttt{VerifyError}), assente su JDK 11: il bytecode instrumentato
-da EvoSuite risulta incompatibile con le regole di verifica più
-recenti introdotte nelle JVM successive alla 11. È stato configurato
-un elemento \texttt{<jdkToolchain>} nel plugin Surefire, per forzare
-l'esecuzione dei test su JDK 11 indipendentemente dal JDK usato per
-compilare il resto del progetto.
-
-\paragraph{Inquinamento di stato tra classi di test} L'aggiunta dei
-test EvoSuite ha esposto, in modo intermittente e dipendente
-dall'ordine di esecuzione, un conflitto a livello di
-\texttt{ServiceLoader}: l'instrumentazione di EvoSuite carica alcuni
-provider SPI da un classloader diverso da quello atteso
-dall'interfaccia, corrompendo lo stato statico condiviso (in
-particolare la classe \texttt{LogicalTypes}) per l'intera durata del
-processo Surefire. La causa è stata individuata in risorse
-\texttt{META-INF/services} superflue, relative a test nativi del
-progetto già esclusi dall'esecuzione (Sezione 2.3): la loro rimozione
-dai \texttt{testResources} ha risolto il problema alla radice.
+\subsubsection{Risoluzione dell'inquinamento di stato tra le classi di test}
+L'introduzione dei test automatici di EvoSuite ha fatto emergere, in modo discontinuo 
+e legato all'ordine con cui i test venivano eseguiti, un conflitto a livello del meccanismo \texttt{ServiceLoader} di Java. 
+In pratica, il processo di modifica del codice di EvoSuite caricava alcuni moduli di configurazione SPI 
+appoggiandosi a un gestore di classi differente rispetto a quello previsto dall'interfaccia originale. 
+Questo finiva per corrompere i dati statici condivisi all'interno dell'applicazione 
+(in particolare la classe \texttt{LogicalTypes}) per l'intera durata del processo di esecuzione di Surefire. 
+Indagando a fondo, la causa è stata circoscritta ad alcuni file di risorse superflui 
+situati nella cartella \texttt{META-INF/services}, rimasti nel progetto a causa di vecchi test nativi 
+che erano già stati esclusi in precedenza (come descritto nella Sezione 2.3). 
+La loro completa rimozione dalle risorse di test ha eliminato definitivamente la radice del problema.
