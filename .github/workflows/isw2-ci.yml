@@ -59,7 +59,6 @@ jobs:
           install -pl avro -am
           -Dinvoker.skip=true
           -Dmaven.build.cache.enabled=false
-          -Dtest=TestResolverCategoryPartition,TestUtf8CategoryPartition,TestUtf8MutationReinforced
           org.jacoco:jacoco-maven-plugin:0.8.12:report
           org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
           -Dsonar.projectKey=avro
