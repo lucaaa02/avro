@@ -49,8 +49,8 @@
 \contentsline {subsection}{\numberline {6.3}Pass or Fail?}{10}{subsection.6.3}%
 \contentsline {subsection}{\numberline {6.4}Differenziale tra i test}{10}{subsection.6.4}%
 \contentsline {paragraph}{Test LLM.}{10}{subsection.6.4}%
-\contentsline {paragraph}{Randoop.}{10}{Item.4}%
-\contentsline {paragraph}{Analisi del Delta.}{10}{Item.4}%
-\contentsline {paragraph}{Confronto tra tecniche.}{11}{Item.4}%
+\contentsline {paragraph}{Randoop.}{10}{subsection.6.4}%
+\contentsline {paragraph}{Analisi del Delta.}{10}{subsection.6.4}%
+\contentsline {paragraph}{Confronto tra tecniche.}{11}{subsection.6.4}%
 \contentsline {section}{\numberline {7}Conclusioni}{11}{section.7}%
 \contentsline {section}{\numberline {A}Tabelle, figure e listati}{i}{appendix.A}%

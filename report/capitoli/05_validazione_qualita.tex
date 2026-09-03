@@ -98,9 +98,9 @@ Durante lo sviluppo di questi test sono venute alla luce due importanti osservaz
 un primo tentativo di controllo basato sul confronto dell'identità dei riferimenti 
 (\texttt{assertSame}) applicato a una stringa vuota non riusciva a eliminare il mutante corrispondente, 
 poiché la macchina virtuale Java ottimizza questa situazione restituendo sempre 
-lo stesso letterale memorizzato in memoria (internato), a prescindere dal ramo di codice realmente eseguito 
---- problema che è stato brillantemente risolto controllando lo stato interno attraverso la reflection; 
-inoltre, ci si è resi conto che un test già esistente nella suite a scatola nera (BB) 
+lo stesso letterale memorizzato in memoria (internato), a prescindere dal ramo di codice realmente eseguito, 
+problema che è stato risolto controllando lo stato interno attraverso la reflection; 
+inoltre, ci si è resi conto che un test già esistente nella suite black box
 non testava affatto il metodo \texttt{equals()} della classe \texttt{Utf8}, 
 dal momento che le regole interne di JUnit 5 finivano per chiamare direttamente \texttt{String.equals()} 
 anziché il metodo personalizzato \texttt{Utf8.equals()} per l'oggetto passato come parametro.
@@ -112,8 +112,7 @@ questo perché le due strade alternative che calcolano \texttt{equals()} e \text
 (una prima strada ottimizzata che sfrutta \texttt{Arrays.equals} e \texttt{Arrays.hashCode} 
 quando gli array hanno dimensioni precise, e una seconda strada basata su un ciclo manuale byte per byte 
 per tutte le altre situazioni) producono logicamente e matematicamente lo stesso identico risultato 
-per qualsiasi input corretto, un comportamento che è stato dimostrato empiricamente 
-tramite test mirati costruiti appositamente al confine esatto tra i due percorsi. 
+per qualsiasi input corretto.
 Al termine dell'integrazione di questi test di rinforzo (MT), 
 la percentuale di copertura dei mutanti (\emph{mutation coverage}) della classe \texttt{Utf8} 
 è cresciuta fino a raggiungere il 56\% (33 mutanti uccisi su un totale di 59), 
@@ -127,13 +126,14 @@ assumendo un \emph{profilo operazionale} che assegna una probabilità
 di utilizzo a ciascuna operazione del sistema. In questo lavoro è
 stato adottato un profilo operazionale a probabilità uniforme.
 
-La scelta di quali operazioni considerare è stata guidata da un
-criterio di rappresentatività: anziché trattare ogni singolo test
-generato automaticamente come un'operazione a sé -- scelta che
-sovra-rappresenterebbe input casuali o degeneri rispetto a scenari
-d'uso plausibili, specialmente per i test prodotti da Randoop -- sono
-state utilizzate le categorie della suite di test manuali (BB) come
-operazioni rappresentative, ciascuna pesata uniformemente $1/N$.
+La scelta delle operazioni da considerare 
+è stata guidata da un criterio di rappresentatività. 
+Invece di trattare ogni singolo test automatico come un'operazione indipendente 
+,una scelta che avrebbe dato troppo peso a input casuali o anomali 
+rispetto ai casi d'uso reali, soprattutto per i test creati da Randoop,
+sono state prese come riferimento le categorie della suite di test manuali (BB). 
+Queste ultime sono state usate come operazioni rappresentative, 
+ciascuna con un peso uniforme pari a $1/N$.
 
 Su \texttt{Resolver}, le 8 categorie individuate risultano tutte
 associate a test passanti, con una Test Strength del 100\% rilevata

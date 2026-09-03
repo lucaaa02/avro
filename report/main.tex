@@ -3,7 +3,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{helvet} 
-\usepackage{float}                 % Helvetica: sostituto metricamente equivalente ad Arial
+\usepackage{float}
 \renewcommand{\familydefault}{\sfdefault}
 \usepackage{geometry}
 \geometry{a4paper, margin=2.2cm}
@@ -22,33 +22,64 @@
 \hypersetup{colorlinks=true, linkcolor=black, urlcolor=blue, citecolor=black}
 \usepackage[italian,nameinlink]{cleveref}
 \usepackage{xcolor}
-% \cref imposta internamente il colore a linkcolor (nero) perché colorlinks=true:
-% un \textcolor esterno verrebbe sovrascritto. Si ridefinisce linkcolor localmente
-% (in un gruppo) solo per la durata del riferimento.
 \newcommand{\tabref}[1]{\textbf{\begingroup\hypersetup{linkcolor=red!70!black}\cref{#1}\endgroup}}
 \newcommand{\figref}[1]{\textbf{\begingroup\hypersetup{linkcolor=blue!70!black}\cref{#1}\endgroup}}
 \usepackage{enumitem}
 \setlist{nosep, itemsep=1pt}         
-% Riduce lo spazio verticale attorno ai titoli di sezione (documento denso)
 \usepackage{titlesec}
 \titlespacing*{\section}{0pt}{8pt}{4pt}
 \titlespacing*{\subsection}{0pt}{6pt}{3pt}
 
-\title{\vspace{-1.5cm}Report di Progetto -- ISW2 Modulo 2\\[2pt]\large Software Testing su Apache Avro (fork \texttt{lucaaa02})}
-\author{[Luca Lo Mastro] -- [Matricola]}
-\date{[03/09/2026]}
-
+% Niente \title/\author/\date — prima pagina custom
 \begin{document}
-\maketitle
-\vspace{-1cm}
+
+% ============================================================
+% PRIMA PAGINA CUSTOM
+% ============================================================
+\begin{titlepage}
+\centering
+\vspace*{2cm}
+
+{\Large\textbf{Università degli Studi di Roma Tor Vergata}}\\[0.3cm]
+{\large Corso di Laurea Magistrale in Ingegneria Informatica}\\[0.3cm]
+{\normalsize Ingegneria del Software 2 — Modulo 2: Software Testing}
+
+\vspace{1.5cm}
+\noindent\rule{\textwidth}{0.8pt}
+\vspace{0.4cm}
+
+{\LARGE\textbf{Report di Progetto}}\\[0.5cm]
+{\large Software Testing su Apache Avro}\\[0.2cm]
+{\normalsize fork \texttt{lucaaa02/avro} $\cdot$ classi \texttt{Resolver} e \texttt{Utf8}}
+
+\vspace{0.4cm}
+\noindent\rule{\textwidth}{0.8pt}
+
+\vspace{2cm}
+
+\begin{tabular}{rl}
+\textbf{Studente}  & Luca Lo Mastro \\
+\textbf{Matricola} & 0386678 \\
+\textbf{Data}      & 3 settembre 2026 \\
+\end{tabular}
+
+\vfill
+
+{\small Anno Accademico 2025/2026}
+
+\end{titlepage}
+
+% ============================================================
+% INDICE
+% ============================================================
 \pagenumbering{roman} 
 \tableofcontents
 \newpage
 \pagenumbering{arabic} 
 \setcounter{page}{1}
+
 % ============================================================
-% CAPITOLI -- un file per capitolo, dentro la cartella capitoli/
-% Decommentare via via che i file vengono creati.
+% CAPITOLI
 % ============================================================
 \input{capitoli/01_introduzione}
 \input{capitoli/02_infrastruttura}
@@ -59,12 +90,7 @@
 \input{capitoli/07_conclusioni}
 
 % ============================================================
-% APPENDICE -- tabelle, figure, listati di codice.
-% Per indicazione esplicita della consegna, questo materiale non
-% viene conteggiato ai fini della lunghezza del report (~12 pagine),
-% ma va comunque discusso nel corpo dei capitoli soprastanti tramite
-% riferimenti incrociati (\ref{}). Le tabelle/figure NON devono
-% contenere testo esplicativo: solo dati, con didascalia minima.
+% APPENDICE
 % ============================================================
 \clearpage
 \pagenumbering{roman}  

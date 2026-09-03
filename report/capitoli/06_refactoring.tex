@@ -20,8 +20,7 @@ Per la generazione dei test sulle varianti sono state adoperate due
 tecniche di prompting LLM: \emph{Zero-Shot} (solo codice sorgente)
 e \emph{Tree-of-Thoughts} (ToT). Sono state inoltre rigenerate suite
 Randoop per ciascuna variante con lo stesso budget temporale (60\,s)
-usato per~$C_0$. I report JaCoCo e PIT per ogni suite sono riportati
-in Appendice.
+usato per~$C_0$. 
 
 % ============================================================
 \subsection{Refactoring di \texttt{Resolver}}
@@ -239,23 +238,6 @@ tecniche ($<$30\% coverage), poiché richiede la costruzione di due
 schemi con struttura union compatibile -- scenario mai generato
 spontaneamente senza indicazioni esplicite nel prompt.
 
-Sono stati osservati quattro pattern distinti di errore nei test
-generati dall'LLM:
-\begin{enumerate}
-  \item \textit{Assunzione semantica errata}: il modello applica la
-  semantica del nome senza verificare il contratto reale
-  (es.\ \texttt{SystemLimitException} non è il tipo di eccezione
-  lanciato; la promozione \texttt{BYTES}$\leftrightarrow$
-  \texttt{STRING} viene ignorata).
-  \item \textit{Errore di conteggio o trasposizione}: indice o
-  sottostringa errati in test su metodi \texttt{CharSequence}.
-  \item \textit{Design che esaurisce le risorse}: allocazione diretta
-  di \texttt{new byte[Integer.MAX\_VALUE]} nel codice del test, che
-  causa \texttt{OutOfMemoryError} nella JVM forkata prima ancora di
-  invocare il SUT.
-  \item \textit{Asserzione tautologica}: espressione malformata che
-  non testa alcun comportamento significativo.
-\end{enumerate}
 
 \paragraph{Randoop.}
 Su \texttt{Resolver}, Randoop non costruisce mai oggetti

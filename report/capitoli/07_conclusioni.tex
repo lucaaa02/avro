@@ -9,60 +9,38 @@ manuali e automatiche, a due classi di un fork di Apache Avro:
 writer e reader, e \texttt{Utf8}, che rappresenta una sequenza di
 testo codificata direttamente in byte UTF-8. Per ciascuna classe sono
 stati sviluppati test manuali basati su Category-Partition, test
-generati automaticamente tramite random testing (Randoop) e
-generazione assistita da un modello linguistico (LLM); la qualità
-dei test è stata validata tramite metriche di adeguatezza e mutation
-testing (PIT) con una stima di reliability; infine, entrambe le
-classi sono state sottoposte a un refactoring in quattro varianti con
-contesto crescente, rilanciando tutte le famiglie di test sviluppate
-per verificarne la tenuta.
+generati automaticamente tramite Randoop e LLM, e la qualità dei test
+è stata validata tramite mutation testing (PIT) e una stima di
+reliability; infine, entrambe le classi sono state sottoposte a un
+refactoring in quattro varianti con contesto crescente.
 
-I risultati più rilevanti emersi dal lavoro sono tre. In primo luogo,
-il random testing basato su reflection si è dimostrato fortemente
-dipendente dalla complessità del dominio di input: efficace su
-\texttt{Utf8} ($\sim$81\% statement coverage su tutte le varianti),
-quasi inefficace su \texttt{Resolver} (0\%), a causa dell'incapacità
-di costruire autonomamente oggetti \texttt{Schema} semanticamente
-validi. In secondo luogo, la generazione tramite LLM ha prodotto
-test strutturalmente diversi tra Zero-Shot e ToT: la tecnica
-Zero-Shot genera suite più ampie (14--20 test) con coverage più alta,
-mentre ToT tende a convergere sugli stessi scenari indipendentemente
-dalla variante refactorizzata, producendo Delta nullo su
-\texttt{Resolver} e selettivo su \texttt{Utf8}. Sono stati
-identificati quattro pattern ricorrenti di errore nei test generati
-automaticamente dall'LLM: assunzione semantica errata sul contratto
-del metodo, errore di conteggio o trasposizione in test su metodi
-\texttt{CharSequence}, design che esaurisce le risorse della JVM
-forkata, e asserzione tautologica priva di valore diagnostico.
-In terzo luogo, e più significativamente, l'analisi del refactoring
-ha dimostrato empiricamente che nessuna singola tecnica di test è
-sufficiente a garantire la correttezza di una modifica al codice:
-su \texttt{Utf8} sono stati introdotti due difetti reali e distinti
-nelle varianti $C_1$ e $C_2$ -- un bug in \texttt{hashCode()}
-rilevabile solo dalla suite MT e un bug in \texttt{equals()}
-rilevabile solo da scenari con costruttore \texttt{package-private}
--- a conferma che tecniche complementari esplorano porzioni diverse
-e non sovrapponibili dello spazio di input.
+Un risultato inatteso è emerso già nella fase manuale: durante la
+progettazione dei test con Category-Partition per \texttt{Utf8}, è
+stato identificato un comportamento potenzialmente anomalo del metodo
+\texttt{setByteLength} nei casi di espansione oltre la capacità
+attuale del buffer. La verifica diretta del codice sorgente ha
+confermato che il metodo non preserva il contenuto dei byte quando il
+buffer viene riallocato -- un comportamento non documentato e
+controintuitivo, che i soli test automatici non avrebbero portato
+alla luce senza un'analisi manuale preliminare.
 
-Il lavoro presenta alcuni limiti. La valutazione degli smell di codice
-nelle varianti rifattorizzate si è basata su un proxy locale (numero
-di righe di codice e punti di decisione), in assenza di un'analisi
-diretta con SonarCloud sulle versioni rifattorizzate. La discrepanza
-tra il path fisico dei sorgenti delle varianti
-(\texttt{src/main/java/org/apache/avro/refactored/}) e il package
-Java dichiarato (\texttt{org.apache.avro}) ha impedito la misura
-della coverage JaCoCo per alcune configurazioni, documentata come
-limitazione tecnica nelle sezioni pertinenti. Infine, è stato
-riscontrato un limite tecnico strutturale tra PIT ed EvoSuite
-(conflitto tra il meccanismo di HotSwap e la strumentazione a
-runtime), che ha impedito di calcolare il mutation score della suite
-EvoSuite in tutte le configurazioni analizzate.
+Sul fronte del random testing, il confronto tra le due classi ha
+evidenziato una dipendenza netta dalla complessità del dominio di
+input: Randoop ha raggiunto l'81\% di statement coverage su
+\texttt{Utf8}, mentre su \texttt{Resolver} è rimasto sostanzialmente
+a 0\%, incapace di costruire autonomamente oggetti \texttt{Schema}
+semanticamente validi. Questo risultato mostra chiaramente i limiti
+del random testing su classi con dipendenze di dominio complesse.
 
-Sviluppi futuri del lavoro potrebbero includere l'estensione
-dell'analisi di qualità del codice alle varianti rifattorizzate
-tramite SonarCloud, la risoluzione della discrepanza tra path fisico
-e package dichiarato nelle varianti (allineando la struttura delle
-cartelle al package Java), e un approfondimento della causa tecnica
-del conflitto tra PIT ed EvoSuite, valutando configurazioni
-alternative del motore di mutazione in grado di superare
-l'incompatibilità riscontrata.
+La generazione tramite LLM ha prodotto un risultato metodologicamente
+interessante: le suite Zero-Shot, generate con un prompt meno
+strutturato, hanno prodotto in media più casi di test e coverage più
+alta rispetto alle suite ToT, che utilizzano un prompting più guidato
+e dettagliato. Questo suggerisce che un prompt più libero lascia al
+modello maggiore spazio per esplorare scenari diversi, mentre la
+struttura imposta da ToT tende a far convergere il modello su un
+insieme più ristretto e prevedibile di casi. Il risultato è
+empiricamente osservabile nei dati raccolti, ma trattandosi di un
+singolo esperimento non è generalizzabile: potrebbe essere
+influenzato dalla specifica natura delle classi analizzate o dalla
+non-determinismo del modello.
